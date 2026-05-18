@@ -147,7 +147,7 @@ await writeFile(
   outputPath,
   `${JSON.stringify(
     {
-      generatedAt: new Date().toISOString(),
+      generatedAt: "generated from repository SEC filing archives",
       filer: {
         name: "Situational Awareness LP",
         cik: "0002045724",

@@ -90,6 +90,8 @@ const COLORS = [
   "#16a34a",
 ];
 
+const ALL_INSTRUMENTS = "All";
+
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -115,6 +117,31 @@ function formatPeriod(date: string) {
 
 function pct(value: number) {
   return `${value.toFixed(1)}%`;
+}
+
+function aggregateIssuers(positions: Position[]): Issuer[] {
+  const byIssuer = new Map<string, Issuer>();
+
+  for (const position of positions) {
+    const current = byIssuer.get(position.issuer) ?? {
+      issuer: position.issuer,
+      value: 0,
+      shares: 0,
+      rows: 0,
+      cusips: [],
+    };
+
+    current.value += position.value;
+    current.shares += position.shares;
+    current.rows += 1;
+    if (!current.cusips.includes(position.cusip)) {
+      current.cusips.push(position.cusip);
+    }
+
+    byIssuer.set(position.issuer, current);
+  }
+
+  return [...byIssuer.values()].sort((a, b) => b.value - a.value);
 }
 
 type ChartTooltipPayload = {
@@ -148,18 +175,42 @@ function CustomTooltip({
 
 export function PortfolioDashboard({ data }: { data: FilingsData }) {
   const [selectedIssuer, setSelectedIssuer] = useState("NVIDIA CORP");
+  const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
   const [query, setQuery] = useState("");
 
   const filings = data.filings;
-  const latest = filings.at(-1)!;
-  const previous = filings.at(-2)!;
+  const instrumentOptions = [ALL_INSTRUMENTS, ...data.allPositionTypes];
+  const filteredFilings = useMemo(() => {
+    return filings.map((filing) => {
+      const positions =
+        instrumentType === ALL_INSTRUMENTS
+          ? filing.positions
+          : filing.positions.filter((position) => position.positionType === instrumentType);
+      const totalValue = positions.reduce((sum, position) => sum + position.value, 0);
+      const issuers = aggregateIssuers(positions);
 
-  const totalSeries = filings.map((filing) => ({
+      return {
+        ...filing,
+        positions,
+        issuers,
+        filteredSummary: {
+          issuerCount: issuers.length,
+          positionRows: positions.length,
+          totalValue,
+        },
+      };
+    });
+  }, [filings, instrumentType]);
+
+  const latest = filteredFilings.at(-1)!;
+  const previous = filteredFilings.at(-2)!;
+
+  const totalSeries = filteredFilings.map((filing) => ({
     period: formatPeriod(filing.reportDate),
     fullDate: filing.reportDate,
-    total: filing.summary.totalValue,
-    issuers: filing.summary.issuerCount,
-    rows: filing.summary.positionRows,
+    total: filing.filteredSummary.totalValue,
+    issuers: filing.filteredSummary.issuerCount,
+    rows: filing.filteredSummary.positionRows,
   }));
 
   const typeSeries = filings.map((filing) => ({
@@ -170,11 +221,11 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
   }));
 
   const topIssuers = latest.issuers.slice(0, 10);
-  const latestTotal = latest.summary.totalValue;
-  const previousTotal = previous.summary.totalValue;
-  const totalChange = ((latestTotal - previousTotal) / previousTotal) * 100;
+  const latestTotal = latest.filteredSummary.totalValue;
+  const previousTotal = previous.filteredSummary.totalValue;
+  const totalChange = previousTotal === 0 ? 0 : ((latestTotal - previousTotal) / previousTotal) * 100;
 
-  const issuerSeries = filings.map((filing) => {
+  const issuerSeries = filteredFilings.map((filing) => {
     const issuer = filing.issuers.find((item) => item.issuer === selectedIssuer);
     return {
       period: formatPeriod(filing.reportDate),
@@ -185,21 +236,23 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
 
   const issuerOptions = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return data.allIssuers
+    const issuers = [...new Set(filteredFilings.flatMap((filing) => filing.issuers.map((issuer) => issuer.issuer)))];
+    return issuers
+      .sort()
       .filter((issuer) => issuer.toLowerCase().includes(normalizedQuery))
       .slice(0, 12);
-  }, [data.allIssuers, query]);
+  }, [filteredFilings, query]);
 
   const allRows = useMemo(() => {
-    return filings.flatMap((filing) =>
+    return filteredFilings.flatMap((filing) =>
       filing.positions.map((position) => ({
         ...position,
         reportDate: filing.reportDate,
         period: formatPeriod(filing.reportDate),
-        weight: position.value / filing.summary.totalValue,
+        weight: filing.filteredSummary.totalValue === 0 ? 0 : position.value / filing.filteredSummary.totalValue,
       })),
     );
-  }, [filings]);
+  }, [filteredFilings]);
 
   const visibleRows = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -221,8 +274,8 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
           <p className="eyebrow">SEC 13F dashboard</p>
           <h1>Situational Awareness LP</h1>
           <p className="lede">
-            Position-level visualization across {filings.length} filings from{" "}
-            {filings[0].reportDate} through {latest.reportDate}.
+            Position-level visualization across {filings.length} filings from {filings[0].reportDate} through{" "}
+            {latest.reportDate}.
           </p>
         </div>
         <div className="hero-actions">
@@ -232,10 +285,29 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
         </div>
       </section>
 
+      <section className="filters" aria-label="Dashboard filters">
+        <div>
+          <p className="eyebrow">Instrument type</p>
+          <div className="segmented-control">
+            {instrumentOptions.map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={instrumentType === option}
+                className={instrumentType === option ? "active" : ""}
+                onClick={() => setInstrumentType(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="metrics" aria-label="Latest filing summary">
         <Metric label="Latest reported value" value={compactCurrency.format(latestTotal)} delta={pct(totalChange)} />
-        <Metric label="Issuers" value={String(latest.summary.issuerCount)} />
-        <Metric label="Position rows" value={String(latest.summary.positionRows)} />
+        <Metric label="Issuers" value={String(latest.filteredSummary.issuerCount)} />
+        <Metric label="Position rows" value={String(latest.filteredSummary.positionRows)} />
         <Metric label="Latest report date" value={latest.reportDate} />
       </section>
 
@@ -341,7 +413,7 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
       <section className="positions-section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">All filings</p>
+            <p className="eyebrow">{instrumentType === ALL_INSTRUMENTS ? "All filings" : `${instrumentType} rows`}</p>
             <h2>Position Rows</h2>
           </div>
           <span>{visibleRows.length} shown</span>

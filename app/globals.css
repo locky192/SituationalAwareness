@@ -85,6 +85,43 @@ h1 {
   font-weight: 700;
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 0 0;
+}
+
+.segmented-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid #b8c4d4;
+  background: #fff;
+}
+
+.segmented-control button {
+  min-width: 86px;
+  min-height: 40px;
+  border: 0;
+  border-right: 1px solid #dbe3ef;
+  background: transparent;
+  color: #334155;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.segmented-control button:last-child {
+  border-right: 0;
+}
+
+.segmented-control button.active {
+  background: var(--ink);
+  color: #fff;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
