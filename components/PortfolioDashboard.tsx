@@ -1048,7 +1048,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
             </div>
           </div>
           <ResponsiveContainer width="100%" height={460}>
-            <ComposedChart data={overlayChartData}>
+            <ComposedChart data={overlayChartData} onMouseLeave={() => setHighlightedOverlayKey(null)}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis
                 dataKey="dateMs"
@@ -1085,7 +1085,6 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                   connectNulls={false}
                   isAnimationActive={false}
                   onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
-                  onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
               ))}
               {overlaySecurities.map((security) => (
@@ -1100,7 +1099,23 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                   }
                   isAnimationActive={false}
                   onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
-                  onMouseLeave={() => setHighlightedOverlayKey(null)}
+                />
+              ))}
+              {overlaySecurities.map((security) => (
+                <Line
+                  key={`${security.chartKey}-hover-target`}
+                  type="monotone"
+                  dataKey={overlayScale === "log" ? security.multipleKey : security.chartKey}
+                  stroke={security.color}
+                  strokeOpacity={0.001}
+                  strokeWidth={14}
+                  dot={false}
+                  activeDot={false}
+                  connectNulls={false}
+                  isAnimationActive={false}
+                  legendType="none"
+                  onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
+                  onMouseMove={() => setHighlightedOverlayKey(security.chartKey)}
                 />
               ))}
               <Line
