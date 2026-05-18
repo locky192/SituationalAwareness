@@ -625,9 +625,23 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       setActivePriceMarker(marker);
     }
   };
+  const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
+  const simulatorByDate = new Map(simulator.series.map((point) => [point.date, point.value]));
+  const simulatorValues = simulator.series.flatMap((point) =>
+    [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
+  );
+  const simulatorMinValue = Math.min(...simulatorValues);
+  const simulatorMaxValue = Math.max(...simulatorValues);
+  const simulatorLogDomain: [number, number] = [
+    Math.max(1, simulatorMinValue * 0.92),
+    simulatorMaxValue * 1.08,
+  ];
   const overlayDates = [...new Set(priceSecurities.flatMap((security) => security.prices.map((point) => point.date)))].sort();
   const overlayMarkerDates = new Set(
-    priceSecurities.flatMap((security) => security.markers.map((marker) => marker.date)),
+    [
+      ...priceSecurities.flatMap((security) => security.markers.map((marker) => marker.date)),
+      ...simulator.events.map((event) => event.date),
+    ],
   );
   const overlayRenderDateSet = new Set(
     overlayDates.filter(
@@ -662,6 +676,11 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   );
   const overlayFullChartData = overlayDates.map((date) => {
     const row: Record<string, number | string> = { date, dateMs: toDateMs(date) };
+    const simulatorValue = simulatorByDate.get(date);
+    if (simulatorValue) {
+      row.simulatorPercent = ((simulatorValue - 10000) / 10000) * 100;
+      row.simulatorMultiple = simulatorValue / 10000;
+    }
     for (const security of overlaySecurities) {
       const firstPrice = security.prices[0]?.adjustedClose ?? 0;
       const price = overlayPriceMaps.get(security.chartKey)?.get(date);
@@ -674,13 +693,17 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   });
   const overlayChartData = overlayFullChartData.filter((point) => overlayRenderDateSet.has(String(point.date)));
   const overlayLinearValues = overlayFullChartData.flatMap((point) =>
-    overlaySecurities
-      .map((security) => point[security.chartKey])
+    [
+      point.simulatorPercent,
+      ...overlaySecurities.map((security) => point[security.chartKey]),
+    ]
       .filter((value): value is number => typeof value === "number"),
   );
   const overlayMultipleValues = overlayFullChartData.flatMap((point) =>
-    overlaySecurities
-      .map((security) => point[security.multipleKey])
+    [
+      point.simulatorMultiple,
+      ...overlaySecurities.map((security) => point[security.multipleKey]),
+    ]
       .filter((value): value is number => typeof value === "number" && value > 0),
   );
   const overlayLinearMin = Math.min(...overlayLinearValues);
@@ -703,17 +726,6 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   )
     .slice()
     .sort((a, b) => b.latestPercent - a.latestPercent);
-  const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
-  const simulatorValues = simulator.series.flatMap((point) =>
-    [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
-  );
-  const simulatorMinValue = Math.min(...simulatorValues);
-  const simulatorMaxValue = Math.max(...simulatorValues);
-  const simulatorLogDomain: [number, number] = [
-    Math.max(1, simulatorMinValue * 0.92),
-    simulatorMaxValue * 1.08,
-  ];
-
   return (
     <main>
       <section className="hero">
@@ -1032,7 +1044,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
           <div className="price-tools">
             <div className="price-summary">
               <strong>{overlaySecurities.length} equities</strong>
-              <span>Each line is normalized to 0% at that equity&apos;s first available price</span>
+              <span>Each line is normalized to 0%; bold black line is the simulated copycat portfolio</span>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={460}>
@@ -1091,6 +1103,17 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                   onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
               ))}
+              <Line
+                type="monotone"
+                dataKey={overlayScale === "log" ? "simulatorMultiple" : "simulatorPercent"}
+                name="Simulated copycat portfolio"
+                stroke="#0f172a"
+                strokeOpacity={1}
+                strokeWidth={4}
+                dot={false}
+                connectNulls={false}
+                isAnimationActive={false}
+              />
             </ComposedChart>
           </ResponsiveContainer>
           <div className="overlay-legend">
