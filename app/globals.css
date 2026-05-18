@@ -360,6 +360,53 @@ h1 {
   font-weight: 800;
 }
 
+.pie-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(360px, 0.9fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.allocation-list {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid #e7edf5;
+}
+
+.allocation-row {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) 64px 86px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e7edf5;
+  font-size: 13px;
+}
+
+.allocation-row:last-child {
+  border-bottom: 0;
+}
+
+.allocation-row strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.allocation-row span,
+.allocation-row em {
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 800;
+  text-align: right;
+}
+
+.allocation-row .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
 .positions-section {
   margin-top: 12px;
 }
@@ -459,6 +506,10 @@ td {
 
   .price-summary {
     text-align: left;
+  }
+
+  .pie-layout {
+    grid-template-columns: 1fr;
   }
 
   h1 {

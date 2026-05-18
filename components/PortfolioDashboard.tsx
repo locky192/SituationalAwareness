@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   BarChart3,
   ExternalLink,
+  PieChart as PieChartIcon,
   Search,
   Table2,
 } from "lucide-react";
@@ -21,6 +22,8 @@ import {
   Legend,
   Line,
   LineChart,
+  Pie,
+  PieChart as RechartsPieChart,
   ReferenceArea,
   ReferenceLine,
   ResponsiveContainer,
@@ -130,6 +133,12 @@ type RebalanceEvent = {
   holdings: number;
   topHolding: string;
   sourceUrl: string;
+};
+
+type EquityAllocation = {
+  issuer: string;
+  value: number;
+  percent: number;
 };
 
 type Benchmark = {
@@ -299,6 +308,38 @@ function SimulatorTooltip({
   );
 }
 
+function PieTooltip({ active, payload }: { active?: boolean; payload?: ChartTooltipPayload[] }) {
+  if (!active || !payload?.length) return null;
+  const allocation = payload[0]?.payload as EquityAllocation | undefined;
+  if (!allocation) return null;
+
+  return (
+    <div className="chart-tooltip">
+      <strong>{allocation.issuer}</strong>
+      <div>Value: {compactCurrency.format(allocation.value)}</div>
+      <div>Weight: {pct(allocation.percent)}</div>
+    </div>
+  );
+}
+
+function equityAllocationsForFiling(filing: Filing): EquityAllocation[] {
+  const byIssuer = new Map<string, EquityAllocation>();
+
+  for (const position of filing.positions.filter((item) => item.positionType === "Equity")) {
+    const current = byIssuer.get(position.issuer) ?? { issuer: position.issuer, value: 0, percent: 0 };
+    current.value += position.value;
+    byIssuer.set(position.issuer, current);
+  }
+
+  const total = [...byIssuer.values()].reduce((sum, item) => sum + item.value, 0);
+  return [...byIssuer.values()]
+    .map((item) => ({
+      ...item,
+      percent: total === 0 ? 0 : (item.value / total) * 100,
+    }))
+    .sort((a, b) => b.value - a.value);
+}
+
 function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[], benchmark?: Benchmark) {
   const priceSecurityByIssuer = new Map(priceSecurities.map((security) => [security.issuer, security]));
   const rawPriceMaps = new Map(
@@ -437,6 +478,7 @@ function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[
 export function PortfolioDashboard({ data, priceData }: { data: FilingsData; priceData: PriceData }) {
   const [selectedIssuer, setSelectedIssuer] = useState("NVIDIA CORP");
   const [selectedPriceIssuer, setSelectedPriceIssuer] = useState("BLOOM ENERGY CORP");
+  const [selectedPieFilingDate, setSelectedPieFilingDate] = useState(data.filings.at(-1)?.reportDate ?? "");
   const [activePriceMarker, setActivePriceMarker] = useState<PriceMarker | null>(null);
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
   const [priceScale, setPriceScale] = useState<"linear" | "log">("linear");
@@ -531,6 +573,9 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     name: issuer.issuer,
     size: issuer.value,
   }));
+  const selectedPieFiling = filings.find((filing) => filing.reportDate === selectedPieFilingDate) ?? filings.at(-1)!;
+  const equityAllocationData = equityAllocationsForFiling(selectedPieFiling);
+  const selectedPieTotal = equityAllocationData.reduce((sum, item) => sum + item.value, 0);
   const priceSecurities = priceData.securities
     .filter((security) => security.ticker && security.prices.length > 0)
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
@@ -712,6 +757,60 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
               <Line type="monotone" dataKey="value" name={selectedIssuer} stroke="#0891b2" strokeWidth={3} />
             </LineChart>
           </ResponsiveContainer>
+        </ChartPanel>
+
+        <ChartPanel title="Equity Holdings Allocation" icon={<PieChartIcon />} wide>
+          <div className="price-tools">
+            <label>
+              Filing date
+              <select
+                value={selectedPieFiling.reportDate}
+                onChange={(event) => setSelectedPieFilingDate(event.target.value)}
+              >
+                {filings.map((filing) => (
+                  <option key={filing.accession} value={filing.reportDate}>
+                    {filing.reportDate} filed {filing.filingDate}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="price-summary">
+              <strong>{equityAllocationData.length} holdings</strong>
+              <span>{compactCurrency.format(selectedPieTotal)} total equity value</span>
+            </div>
+          </div>
+          <div className="pie-layout">
+            <ResponsiveContainer width="100%" height={420}>
+              <RechartsPieChart>
+                <Tooltip content={<PieTooltip />} />
+                <Pie
+                  data={equityAllocationData}
+                  dataKey="value"
+                  nameKey="issuer"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="42%"
+                  minAngle={1}
+                  outerRadius="78%"
+                  paddingAngle={1}
+                >
+                  {equityAllocationData.map((_, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+              </RechartsPieChart>
+            </ResponsiveContainer>
+            <div className="allocation-list">
+              {equityAllocationData.map((holding, index) => (
+                <div key={holding.issuer} className="allocation-row">
+                  <span className="swatch" style={{ background: COLORS[index % COLORS.length] }} />
+                  <strong>{holding.issuer}</strong>
+                  <span>{pct(holding.percent)}</span>
+                  <em>{compactCurrency.format(holding.value)}</em>
+                </div>
+              ))}
+            </div>
+          </div>
         </ChartPanel>
 
         <ChartPanel title="Equity Price History With Filing Changes" icon={<Activity size={18} />} wide>
