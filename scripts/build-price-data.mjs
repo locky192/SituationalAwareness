@@ -191,6 +191,13 @@ await writeFile(
       generatedAt: "generated from Yahoo Finance chart API",
       startDate,
       endDate,
+      benchmarks: [
+        {
+          ticker: "SPY",
+          displayName: "S&P 500 ETF",
+          prices: await fetchPrices("SPY", startDate, endDate),
+        },
+      ],
       securities,
     },
     null,

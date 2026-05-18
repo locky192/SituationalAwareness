@@ -117,6 +117,7 @@ type PriceSecurity = {
 type SimulatorPoint = {
   date: string;
   value: number;
+  benchmarkValue?: number | null;
   rebalanceValue?: number | null;
   event?: RebalanceEvent;
 };
@@ -131,10 +132,17 @@ type RebalanceEvent = {
   sourceUrl: string;
 };
 
+type Benchmark = {
+  ticker: string;
+  displayName: string;
+  prices: PricePoint[];
+};
+
 export type PriceData = {
   generatedAt: string;
   startDate: string;
   endDate: string;
+  benchmarks?: Benchmark[];
   securities: PriceSecurity[];
 };
 
@@ -274,7 +282,11 @@ function SimulatorTooltip({
   return (
     <div className="chart-tooltip">
       <strong>{label}</strong>
-      <div>Portfolio value: {currency.format(payload[0].value ?? 0)}</div>
+      {payload.map((entry) => (
+        <div key={entry.dataKey} style={{ color: entry.color }}>
+          {entry.name ?? entry.dataKey}: {currency.format(entry.value ?? 0)}
+        </div>
+      ))}
       {point?.event ? (
         <>
           <div>Rebalanced from filing: {point.event.filingDate}</div>
@@ -287,7 +299,7 @@ function SimulatorTooltip({
   );
 }
 
-function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[]) {
+function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[], benchmark?: Benchmark) {
   const priceSecurityByIssuer = new Map(priceSecurities.map((security) => [security.issuer, security]));
   const rawPriceMaps = new Map(
     priceSecurities.map((security) => [
@@ -314,7 +326,14 @@ function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[
   }
   const firstFilingDate = filings[0]?.filingDate;
   if (!firstFilingDate) {
-    return { series: [], events: [], endingValue: 0, totalReturn: 0 };
+    return {
+      series: [],
+      events: [],
+      endingValue: 0,
+      totalReturn: 0,
+      benchmarkEndingValue: 0,
+      benchmarkReturn: 0,
+    };
   }
 
   const filingTargets = filings.map((filing) => {
@@ -350,6 +369,9 @@ function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[
   let nextTargetIndex = 0;
   const series: SimulatorPoint[] = [];
   const events: RebalanceEvent[] = [];
+  const benchmarkPrices = new Map((benchmark?.prices ?? []).map((point) => [point.date, point.adjustedClose]));
+  const benchmarkStartPrice =
+    benchmark?.prices.find((point) => point.date >= firstFilingDate)?.adjustedClose ?? benchmark?.prices[0]?.adjustedClose;
 
   for (const date of allDates.filter((item) => item >= firstFilingDate)) {
     portfolioValue =
@@ -389,20 +411,26 @@ function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[
     }
 
     const event = events.find((item) => item.date === date);
+    const benchmarkPrice = benchmarkPrices.get(date);
     series.push({
       date,
       value: portfolioValue,
+      benchmarkValue:
+        benchmarkStartPrice && benchmarkPrice ? 10000 * (benchmarkPrice / benchmarkStartPrice) : null,
       rebalanceValue: event ? portfolioValue : null,
       event,
     });
   }
 
   const endingValue = series.at(-1)?.value ?? 10000;
+  const benchmarkEndingValue = [...series].reverse().find((point) => point.benchmarkValue)?.benchmarkValue ?? 10000;
   return {
     series,
     events,
     endingValue,
     totalReturn: ((endingValue - 10000) / 10000) * 100,
+    benchmarkEndingValue,
+    benchmarkReturn: ((benchmarkEndingValue - 10000) / 10000) * 100,
   };
 }
 
@@ -525,7 +553,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       setActivePriceMarker(marker);
     }
   };
-  const simulator = buildSimulatorSeries(filings, priceSecurities);
+  const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
 
   return (
     <main>
@@ -753,6 +781,16 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
               <span>Rebalances</span>
               <strong>{simulator.events.length}</strong>
             </article>
+            <article>
+              <span>S&amp;P 500 value</span>
+              <strong>{currency.format(simulator.benchmarkEndingValue)}</strong>
+            </article>
+            <article>
+              <span>S&amp;P 500 return</span>
+              <strong className={simulator.benchmarkReturn >= 0 ? "positive" : "negative"}>
+                {pct(simulator.benchmarkReturn)}
+              </strong>
+            </article>
           </div>
           <ResponsiveContainer width="100%" height={340}>
             <ComposedChart data={simulator.series}>
@@ -768,6 +806,14 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 dataKey="value"
                 name="Simulated value"
                 stroke="#059669"
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="benchmarkValue"
+                name="S&P 500"
+                stroke="#2563eb"
                 strokeWidth={2.5}
                 dot={false}
               />
