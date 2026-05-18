@@ -439,6 +439,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const [selectedPriceIssuer, setSelectedPriceIssuer] = useState("BLOOM ENERGY CORP");
   const [activePriceMarker, setActivePriceMarker] = useState<PriceMarker | null>(null);
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
+  const [simulatorScale, setSimulatorScale] = useState<"linear" | "log">("linear");
   const [query, setQuery] = useState("");
 
   const filings = data.filings;
@@ -764,6 +765,29 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
         </ChartPanel>
 
         <ChartPanel title="Public Filing Copycat Simulator" icon={<Activity size={18} />} wide>
+          <div className="panel-toolbar">
+            <div>
+              <p className="eyebrow">Y-axis scale</p>
+              <div className="segmented-control small">
+                <button
+                  type="button"
+                  aria-pressed={simulatorScale === "linear"}
+                  className={simulatorScale === "linear" ? "active" : ""}
+                  onClick={() => setSimulatorScale("linear")}
+                >
+                  Linear
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={simulatorScale === "log"}
+                  className={simulatorScale === "log" ? "active" : ""}
+                  onClick={() => setSimulatorScale("log")}
+                >
+                  Log
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="simulator-summary">
             <article>
               <span>Starting value</span>
@@ -796,7 +820,13 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
             <ComposedChart data={simulator.series}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
-              <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
+              <YAxis
+                allowDataOverflow={simulatorScale === "log"}
+                domain={simulatorScale === "log" ? [9000, "dataMax"] : undefined}
+                scale={simulatorScale}
+                tickFormatter={(value) => compactCurrency.format(Number(value))}
+                width={74}
+              />
               <Tooltip content={<SimulatorTooltip />} />
               {simulator.events.map((event) => (
                 <ReferenceLine key={event.date} x={event.date} stroke="#94a3b8" strokeDasharray="4 4" />

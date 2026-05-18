@@ -122,6 +122,12 @@ h1 {
   color: #fff;
 }
 
+.segmented-control.small button {
+  min-width: 74px;
+  min-height: 34px;
+  font-size: 13px;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -203,6 +209,12 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.panel-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
 }
 
 .chart-tooltip {
