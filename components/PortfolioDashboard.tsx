@@ -177,6 +177,8 @@ const COLORS = [
 ];
 
 const ALL_INSTRUMENTS = "All";
+const SIMULATOR_EXACT = "exact";
+const SIMULATOR_ABOVE_ONE_PERCENT = "above-one-percent";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -357,7 +359,12 @@ function equityAllocationsForFiling(filing: Filing): EquityAllocation[] {
     .sort((a, b) => b.value - a.value);
 }
 
-function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[], benchmark?: Benchmark) {
+function buildSimulatorSeries(
+  filings: Filing[],
+  priceSecurities: PriceSecurity[],
+  benchmark?: Benchmark,
+  minimumWeight = 0,
+) {
   const priceSecurityByIssuer = new Map(priceSecurities.map((security) => [security.issuer, security]));
   const rawPriceMaps = new Map(
     priceSecurities.map((security) => [
@@ -410,7 +417,7 @@ function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[
         issuer: item.issuer,
         weight: total === 0 ? 0 : item.value / total,
       }))
-      .filter((item) => item.weight > 0)
+      .filter((item) => item.weight > 0 && item.weight >= minimumWeight)
       .sort((a, b) => b.weight - a.weight);
 
     return {
@@ -502,6 +509,9 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const [overlayScale, setOverlayScale] = useState<"linear" | "log">("linear");
   const [highlightedOverlayKey, setHighlightedOverlayKey] = useState<string | null>(null);
   const [simulatorScale, setSimulatorScale] = useState<"linear" | "log">("linear");
+  const [simulatorMode, setSimulatorMode] = useState<typeof SIMULATOR_EXACT | typeof SIMULATOR_ABOVE_ONE_PERCENT>(
+    SIMULATOR_EXACT,
+  );
   const [query, setQuery] = useState("");
 
   const filings = data.filings;
@@ -625,7 +635,8 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       setActivePriceMarker(marker);
     }
   };
-  const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
+  const simulatorMinimumWeight = simulatorMode === SIMULATOR_ABOVE_ONE_PERCENT ? 0.01 : 0;
+  const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0], simulatorMinimumWeight);
   const simulatorByDate = new Map(simulator.series.map((point) => [point.date, point.value]));
   const simulatorValues = simulator.series.flatMap((point) =>
     [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
@@ -1152,6 +1163,27 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
 
         <ChartPanel title="Public Filing Copycat Simulator" icon={<Activity size={18} />} wide>
           <div className="panel-toolbar">
+            <div>
+              <p className="eyebrow">Copy mode</p>
+              <div className="segmented-control small">
+                <button
+                  type="button"
+                  aria-pressed={simulatorMode === SIMULATOR_EXACT}
+                  className={simulatorMode === SIMULATOR_EXACT ? "active" : ""}
+                  onClick={() => setSimulatorMode(SIMULATOR_EXACT)}
+                >
+                  Exact
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={simulatorMode === SIMULATOR_ABOVE_ONE_PERCENT}
+                  className={simulatorMode === SIMULATOR_ABOVE_ONE_PERCENT ? "active" : ""}
+                  onClick={() => setSimulatorMode(SIMULATOR_ABOVE_ONE_PERCENT)}
+                >
+                  Above 1%
+                </button>
+              </div>
+            </div>
             <div>
               <p className="eyebrow">Y-axis scale</p>
               <div className="segmented-control small">

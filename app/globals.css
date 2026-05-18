@@ -213,6 +213,8 @@ h1 {
 
 .panel-toolbar {
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: flex-end;
   margin-bottom: 12px;
 }
