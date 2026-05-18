@@ -16,3 +16,9 @@ The data file is generated from the archived SEC XML filings:
 ```bash
 npm run data:build
 ```
+
+Historical prices for the equity price chart and copycat simulator are generated separately:
+
+```bash
+npm run prices:build
+```

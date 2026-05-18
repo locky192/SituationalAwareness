@@ -22,6 +22,7 @@ import {
   Line,
   LineChart,
   ReferenceArea,
+  ReferenceLine,
   ResponsiveContainer,
   Scatter,
   Tooltip,
@@ -113,6 +114,23 @@ type PriceSecurity = {
   error: string | null;
 };
 
+type SimulatorPoint = {
+  date: string;
+  value: number;
+  rebalanceValue?: number | null;
+  event?: RebalanceEvent;
+};
+
+type RebalanceEvent = {
+  date: string;
+  filingDate: string;
+  reportDate: string;
+  value: number;
+  holdings: number;
+  topHolding: string;
+  sourceUrl: string;
+};
+
 export type PriceData = {
   generatedAt: string;
   startDate: string;
@@ -160,6 +178,10 @@ function formatPeriod(date: string) {
 
 function pct(value: number) {
   return `${value.toFixed(1)}%`;
+}
+
+function canonicalIssuer(issuer: string) {
+  return issuer.toUpperCase().replace(/\s+/g, " ").trim();
 }
 
 function aggregateIssuers(positions: Position[]): Issuer[] {
@@ -236,6 +258,152 @@ function PriceTooltip({ active, payload, label }: { active?: boolean; payload?: 
       ) : null}
     </div>
   );
+}
+
+function SimulatorTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: ChartTooltipPayload[];
+  label?: string;
+}) {
+  if (!active || !payload?.length) return null;
+  const point = payload[0]?.payload as SimulatorPoint | undefined;
+  return (
+    <div className="chart-tooltip">
+      <strong>{label}</strong>
+      <div>Portfolio value: {currency.format(payload[0].value ?? 0)}</div>
+      {point?.event ? (
+        <>
+          <div>Rebalanced from filing: {point.event.filingDate}</div>
+          <div>Reported period: {point.event.reportDate}</div>
+          <div>Holdings copied: {point.event.holdings}</div>
+          <div>Largest weight: {point.event.topHolding}</div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function buildSimulatorSeries(filings: Filing[], priceSecurities: PriceSecurity[]) {
+  const priceSecurityByIssuer = new Map(priceSecurities.map((security) => [security.issuer, security]));
+  const rawPriceMaps = new Map(
+    priceSecurities.map((security) => [
+      security.issuer,
+      new Map(security.prices.map((point) => [point.date, point.adjustedClose])),
+    ]),
+  );
+  const allDates = [...new Set(priceSecurities.flatMap((security) => security.prices.map((point) => point.date)))].sort();
+  const priceMaps = new Map<string, Map<string, number>>();
+
+  for (const security of priceSecurities) {
+    const rawPrices = rawPriceMaps.get(security.issuer);
+    const filledPrices = new Map<string, number>();
+    let lastPrice: number | undefined;
+
+    for (const date of allDates) {
+      lastPrice = rawPrices?.get(date) ?? lastPrice;
+      if (lastPrice !== undefined) {
+        filledPrices.set(date, lastPrice);
+      }
+    }
+
+    priceMaps.set(security.issuer, filledPrices);
+  }
+  const firstFilingDate = filings[0]?.filingDate;
+  if (!firstFilingDate) {
+    return { series: [], events: [], endingValue: 0, totalReturn: 0 };
+  }
+
+  const filingTargets = filings.map((filing) => {
+    const byIssuer = new Map<string, { issuer: string; value: number }>();
+    for (const position of filing.positions.filter((item) => item.positionType === "Equity")) {
+      const issuer = canonicalIssuer(position.issuer);
+      if (!priceSecurityByIssuer.has(issuer)) continue;
+      const current = byIssuer.get(issuer) ?? { issuer, value: 0 };
+      current.value += position.value;
+      byIssuer.set(issuer, current);
+    }
+
+    const total = [...byIssuer.values()].reduce((sum, item) => sum + item.value, 0);
+    const weights = [...byIssuer.values()]
+      .map((item) => ({
+        issuer: item.issuer,
+        weight: total === 0 ? 0 : item.value / total,
+      }))
+      .filter((item) => item.weight > 0)
+      .sort((a, b) => b.weight - a.weight);
+
+    return {
+      filingDate: filing.filingDate,
+      reportDate: filing.reportDate,
+      sourceUrl: filing.sourceUrl,
+      weights,
+    };
+  });
+
+  let portfolioValue = 10000;
+  let cash = 10000;
+  let shares = new Map<string, number>();
+  let nextTargetIndex = 0;
+  const series: SimulatorPoint[] = [];
+  const events: RebalanceEvent[] = [];
+
+  for (const date of allDates.filter((item) => item >= firstFilingDate)) {
+    portfolioValue =
+      cash +
+      [...shares.entries()].reduce((sum, [issuer, quantity]) => {
+        const price = priceMaps.get(issuer)?.get(date);
+        return sum + quantity * (price ?? 0);
+      }, 0);
+
+    while (nextTargetIndex < filingTargets.length && filingTargets[nextTargetIndex].filingDate <= date) {
+      const target = filingTargets[nextTargetIndex];
+      const tradableWeights = target.weights.filter((item) => priceMaps.get(item.issuer)?.get(date));
+      const tradableTotalWeight = tradableWeights.reduce((sum, item) => sum + item.weight, 0);
+      shares = new Map();
+      cash = portfolioValue;
+
+      if (tradableTotalWeight > 0) {
+        cash = 0;
+        for (const item of tradableWeights) {
+          const price = priceMaps.get(item.issuer)?.get(date) ?? 0;
+          const allocation = portfolioValue * (item.weight / tradableTotalWeight);
+          shares.set(item.issuer, allocation / price);
+        }
+      }
+
+      const event: RebalanceEvent = {
+        date,
+        filingDate: target.filingDate,
+        reportDate: target.reportDate,
+        value: portfolioValue,
+        holdings: tradableWeights.length,
+        topHolding: priceSecurityByIssuer.get(tradableWeights[0]?.issuer)?.displayName ?? "None",
+        sourceUrl: target.sourceUrl,
+      };
+      events.push(event);
+      nextTargetIndex += 1;
+    }
+
+    const event = events.find((item) => item.date === date);
+    series.push({
+      date,
+      value: portfolioValue,
+      rebalanceValue: event ? portfolioValue : null,
+      event,
+    });
+  }
+
+  const endingValue = series.at(-1)?.value ?? 10000;
+  return {
+    series,
+    events,
+    endingValue,
+    totalReturn: ((endingValue - 10000) / 10000) * 100,
+  };
 }
 
 export function PortfolioDashboard({ data, priceData }: { data: FilingsData; priceData: PriceData }) {
@@ -357,6 +525,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       setActivePriceMarker(marker);
     }
   };
+  const simulator = buildSimulatorSeries(filings, priceSecurities);
 
   return (
     <main>
@@ -561,6 +730,56 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 <span>{marker.reportDate}</span>
                 <strong>{compactCurrency.format(marker.value)}</strong>
                 <em>{compactCurrency.format(marker.delta)}</em>
+              </a>
+            ))}
+          </div>
+        </ChartPanel>
+
+        <ChartPanel title="Public Filing Copycat Simulator" icon={<Activity size={18} />} wide>
+          <div className="simulator-summary">
+            <article>
+              <span>Starting value</span>
+              <strong>{currency.format(10000)}</strong>
+            </article>
+            <article>
+              <span>Latest simulated value</span>
+              <strong>{currency.format(simulator.endingValue)}</strong>
+            </article>
+            <article>
+              <span>Total return</span>
+              <strong className={simulator.totalReturn >= 0 ? "positive" : "negative"}>{pct(simulator.totalReturn)}</strong>
+            </article>
+            <article>
+              <span>Rebalances</span>
+              <strong>{simulator.events.length}</strong>
+            </article>
+          </div>
+          <ResponsiveContainer width="100%" height={340}>
+            <ComposedChart data={simulator.series}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
+              <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
+              <Tooltip content={<SimulatorTooltip />} />
+              {simulator.events.map((event) => (
+                <ReferenceLine key={event.date} x={event.date} stroke="#94a3b8" strokeDasharray="4 4" />
+              ))}
+              <Line
+                type="monotone"
+                dataKey="value"
+                name="Simulated value"
+                stroke="#059669"
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Scatter dataKey="rebalanceValue" name="Rebalance" fill="#ca8a04" />
+            </ComposedChart>
+          </ResponsiveContainer>
+          <div className="filing-events simulator-events">
+            {simulator.events.map((event) => (
+              <a key={`${event.date}-${event.reportDate}`} href={event.sourceUrl} target="_blank" rel="noreferrer">
+                <span>{event.filingDate}</span>
+                <strong>{currency.format(event.value)}</strong>
+                <em>{event.holdings} holdings</em>
               </a>
             ))}
           </div>
