@@ -719,6 +719,13 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     Math.max(0.01, overlayMultipleMin * 0.9),
     overlayMultipleMax * 1.1,
   ];
+  const visibleOverlayLegendSecurities = (
+    highlightedOverlayKey
+      ? overlaySecurities.filter((security) => security.chartKey === highlightedOverlayKey)
+      : overlaySecurities
+  )
+    .slice()
+    .sort((a, b) => b.latestPercent - a.latestPercent);
   const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
   const simulatorValues = simulator.series.flatMap((point) =>
     [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
@@ -1109,22 +1116,19 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
             </ComposedChart>
           </ResponsiveContainer>
           <div className="overlay-legend">
-            {overlaySecurities
-              .slice()
-              .sort((a, b) => b.latestPercent - a.latestPercent)
-              .map((security) => (
-                <div
-                  key={security.chartKey}
-                  className={`overlay-legend-item${highlightedOverlayKey === security.chartKey ? " highlighted" : ""}`}
-                  onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
-                  onMouseLeave={() => setHighlightedOverlayKey(null)}
-                >
-                  <span className="swatch" style={{ background: security.color }} />
-                  <strong>{security.ticker}</strong>
-                  <span>{security.displayName}</span>
-                  <em className={security.latestPercent >= 0 ? "positive" : "negative"}>{pct(security.latestPercent)}</em>
-                </div>
-              ))}
+            {visibleOverlayLegendSecurities.map((security) => (
+              <div
+                key={security.chartKey}
+                className={`overlay-legend-item${highlightedOverlayKey === security.chartKey ? " highlighted" : ""}`}
+                onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
+                onMouseLeave={() => setHighlightedOverlayKey(null)}
+              >
+                <span className="swatch" style={{ background: security.color }} />
+                <strong>{security.ticker}</strong>
+                <span>{security.displayName}</span>
+                <em className={security.latestPercent >= 0 ? "positive" : "negative"}>{pct(security.latestPercent)}</em>
+              </div>
+            ))}
           </div>
         </ChartPanel>
 
