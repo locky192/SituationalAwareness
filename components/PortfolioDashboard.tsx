@@ -626,6 +626,15 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     }
   };
   const overlayDates = [...new Set(priceSecurities.flatMap((security) => security.prices.map((point) => point.date)))].sort();
+  const overlayMarkerDates = new Set(
+    priceSecurities.flatMap((security) => security.markers.map((marker) => marker.date)),
+  );
+  const overlayRenderDateSet = new Set(
+    overlayDates.filter(
+      (date, index) =>
+        index === 0 || index === overlayDates.length - 1 || index % 5 === 0 || overlayMarkerDates.has(date),
+    ),
+  );
   const overlaySecurities: OverlaySecurity[] = priceSecurities.map((security, index) => {
     const chartKey = `equity_${index}`;
     const multipleKey = `${chartKey}_multiple`;
@@ -651,7 +660,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       new Map(security.prices.map((point) => [point.date, point.adjustedClose])),
     ]),
   );
-  const overlayChartData = overlayDates.map((date) => {
+  const overlayFullChartData = overlayDates.map((date) => {
     const row: Record<string, number | string> = { date, dateMs: toDateMs(date) };
     for (const security of overlaySecurities) {
       const firstPrice = security.prices[0]?.adjustedClose ?? 0;
@@ -663,12 +672,13 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     }
     return row;
   });
-  const overlayLinearValues = overlayChartData.flatMap((point) =>
+  const overlayChartData = overlayFullChartData.filter((point) => overlayRenderDateSet.has(String(point.date)));
+  const overlayLinearValues = overlayFullChartData.flatMap((point) =>
     overlaySecurities
       .map((security) => point[security.chartKey])
       .filter((value): value is number => typeof value === "number"),
   );
-  const overlayMultipleValues = overlayChartData.flatMap((point) =>
+  const overlayMultipleValues = overlayFullChartData.flatMap((point) =>
     overlaySecurities
       .map((security) => point[security.multipleKey])
       .filter((value): value is number => typeof value === "number" && value > 0),
@@ -1061,6 +1071,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                   strokeWidth={highlightedOverlayKey === security.chartKey ? 3 : 1.5}
                   dot={false}
                   connectNulls={false}
+                  isAnimationActive={false}
                   onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
                   onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
@@ -1075,6 +1086,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                   opacity={
                     highlightedOverlayKey ? (highlightedOverlayKey === security.chartKey ? 1 : 0.12) : 0.72
                   }
+                  isAnimationActive={false}
                   onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
                   onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
