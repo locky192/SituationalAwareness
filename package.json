@@ -1,0 +1,40 @@
+{
+  "name": "situational-awareness",
+  "version": "1.0.0",
+  "description": "This repository stores public SEC 13F filings for Situational Awareness LP.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run data:build && next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "data:build": "node scripts/build-13f-data.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/locky192/SituationalAwareness.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/locky192/SituationalAwareness/issues"
+  },
+  "homepage": "https://github.com/locky192/SituationalAwareness#readme",
+  "dependencies": {
+    "fast-xml-parser": "^5.8.0",
+    "lucide-react": "^1.16.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.6",
+    "typescript": "^6.0.3"
+  }
+}

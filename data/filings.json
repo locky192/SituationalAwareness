@@ -1,0 +1,2934 @@
+{
+  "generatedAt": "2026-05-18T16:28:28.530Z",
+  "filer": {
+    "name": "Situational Awareness LP",
+    "cik": "0002045724"
+  },
+  "filings": [
+    {
+      "accession": "0000935836-25-000120",
+      "reportDate": "2024-12-31",
+      "filingDate": "2025-02-12",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000093583625000120/",
+      "informationTableFile": "infotable.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 6,
+        "tableValueTotal": 254813765,
+        "positionRows": 6,
+        "issuerCount": 6,
+        "totalValue": 254813765,
+        "typeTotals": {
+          "Equity": 254813765
+        }
+      },
+      "positions": [
+        {
+          "id": "573874104-Equity",
+          "issuer": "MARVELL TECHNOLOGY INC",
+          "title": "COM",
+          "cusip": "573874104",
+          "value": 86802213,
+          "shares": 785896,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 785896,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92840M102-Equity",
+          "issuer": "VISTRA CORP",
+          "title": "COM",
+          "cusip": "92840M102",
+          "value": 59063094,
+          "shares": 428397,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 428397,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92537N108-Equity",
+          "issuer": "VERTIV HOLDINGS CO",
+          "title": "COM CL A",
+          "cusip": "92537N108",
+          "value": 51709137,
+          "shares": 455146,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 455146,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "87422Q109-Equity",
+          "issuer": "TALEN ENERGY CORP",
+          "title": "COM",
+          "cusip": "87422Q109",
+          "value": 27979751,
+          "shares": 138878,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 138878,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21037T109-Equity",
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "title": "COM",
+          "cusip": "21037T109",
+          "value": 21565644,
+          "shares": 96400,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 96400,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "607828100-Equity",
+          "issuer": "MODINE MFG CO",
+          "title": "COM",
+          "cusip": "607828100",
+          "value": 7693926,
+          "shares": 66367,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 66367,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "MARVELL TECHNOLOGY INC",
+          "value": 86802213,
+          "shares": 785896,
+          "rows": 1,
+          "cusips": [
+            "573874104"
+          ]
+        },
+        {
+          "issuer": "VISTRA CORP",
+          "value": 59063094,
+          "shares": 428397,
+          "rows": 1,
+          "cusips": [
+            "92840M102"
+          ]
+        },
+        {
+          "issuer": "VERTIV HOLDINGS CO",
+          "value": 51709137,
+          "shares": 455146,
+          "rows": 1,
+          "cusips": [
+            "92537N108"
+          ]
+        },
+        {
+          "issuer": "TALEN ENERGY CORP",
+          "value": 27979751,
+          "shares": 138878,
+          "rows": 1,
+          "cusips": [
+            "87422Q109"
+          ]
+        },
+        {
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "value": 21565644,
+          "shares": 96400,
+          "rows": 1,
+          "cusips": [
+            "21037T109"
+          ]
+        },
+        {
+          "issuer": "MODINE MFG CO",
+          "value": 7693926,
+          "shares": 66367,
+          "rows": 1,
+          "cusips": [
+            "607828100"
+          ]
+        }
+      ]
+    },
+    {
+      "accession": "0002045724-25-000002",
+      "reportDate": "2025-03-31",
+      "filingDate": "2025-05-14",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000204572425000002/",
+      "informationTableFile": "SALP13fq1.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 12,
+        "tableValueTotal": 1005567727,
+        "positionRows": 12,
+        "issuerCount": 12,
+        "totalValue": 1005567727,
+        "typeTotals": {
+          "Equity": 545976373,
+          "Call": 459591354
+        }
+      },
+      "positions": [
+        {
+          "id": "458140100-Call",
+          "issuer": "Intel Corp",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 459591354,
+          "shares": 20237400,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 20237400
+        },
+        {
+          "id": "11135F101-Equity",
+          "issuer": "Broadcom Inc",
+          "title": "COM",
+          "cusip": "11135F101",
+          "value": 117201000,
+          "shares": 700000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 700000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "683344105-Equity",
+          "issuer": "Onto Innovation Inc",
+          "title": "COM",
+          "cusip": "683344105",
+          "value": 71192241,
+          "shares": 586717,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 586717,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92840M102-Equity",
+          "issuer": "Vistra Corp",
+          "title": "COM",
+          "cusip": "92840M102",
+          "value": 61755354,
+          "shares": 525846,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 525846,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "607828100-Equity",
+          "issuer": "Modine Mfg Co",
+          "title": "COM",
+          "cusip": "607828100",
+          "value": 55016242,
+          "shares": 716824,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 716824,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "26884L109-Equity",
+          "issuer": "EQT Corp",
+          "title": "COM",
+          "cusip": "26884L109",
+          "value": 52863535,
+          "shares": 989398,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 989398,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21873S108-Equity",
+          "issuer": "CoreWeave Inc",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 45423000,
+          "shares": 1225000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1225000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21037T109-Equity",
+          "issuer": "Constellation Energy Corp",
+          "title": "COM",
+          "cusip": "21037T109",
+          "value": 36978942,
+          "shares": 183400,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 183400,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21874A106-Equity",
+          "issuer": "Core Scientific Inc New",
+          "title": "COM",
+          "cusip": "21874A106",
+          "value": 32736225,
+          "shares": 4521578,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 4521578,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "87422Q109-Equity",
+          "issuer": "Talen Energy Corp",
+          "title": "COM",
+          "cusip": "87422Q109",
+          "value": 29630030,
+          "shares": 148395,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 148395,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "38169207-Equity",
+          "issuer": "Applied Digital Corp",
+          "title": "COM NEW",
+          "cusip": "38169207",
+          "value": 22680072,
+          "shares": 4035600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 4035600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "Q4982L109-Equity",
+          "issuer": "IREN Limited",
+          "title": "ORDINARY SHARES",
+          "cusip": "Q4982L109",
+          "value": 20499732,
+          "shares": 3366130,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 3366130,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "Intel Corp",
+          "value": 459591354,
+          "shares": 20237400,
+          "rows": 1,
+          "cusips": [
+            "458140100"
+          ]
+        },
+        {
+          "issuer": "Broadcom Inc",
+          "value": 117201000,
+          "shares": 700000,
+          "rows": 1,
+          "cusips": [
+            "11135F101"
+          ]
+        },
+        {
+          "issuer": "Onto Innovation Inc",
+          "value": 71192241,
+          "shares": 586717,
+          "rows": 1,
+          "cusips": [
+            "683344105"
+          ]
+        },
+        {
+          "issuer": "Vistra Corp",
+          "value": 61755354,
+          "shares": 525846,
+          "rows": 1,
+          "cusips": [
+            "92840M102"
+          ]
+        },
+        {
+          "issuer": "Modine Mfg Co",
+          "value": 55016242,
+          "shares": 716824,
+          "rows": 1,
+          "cusips": [
+            "607828100"
+          ]
+        },
+        {
+          "issuer": "EQT Corp",
+          "value": 52863535,
+          "shares": 989398,
+          "rows": 1,
+          "cusips": [
+            "26884L109"
+          ]
+        },
+        {
+          "issuer": "CoreWeave Inc",
+          "value": 45423000,
+          "shares": 1225000,
+          "rows": 1,
+          "cusips": [
+            "21873S108"
+          ]
+        },
+        {
+          "issuer": "Constellation Energy Corp",
+          "value": 36978942,
+          "shares": 183400,
+          "rows": 1,
+          "cusips": [
+            "21037T109"
+          ]
+        },
+        {
+          "issuer": "Core Scientific Inc New",
+          "value": 32736225,
+          "shares": 4521578,
+          "rows": 1,
+          "cusips": [
+            "21874A106"
+          ]
+        },
+        {
+          "issuer": "Talen Energy Corp",
+          "value": 29630030,
+          "shares": 148395,
+          "rows": 1,
+          "cusips": [
+            "87422Q109"
+          ]
+        },
+        {
+          "issuer": "Applied Digital Corp",
+          "value": 22680072,
+          "shares": 4035600,
+          "rows": 1,
+          "cusips": [
+            "38169207"
+          ]
+        },
+        {
+          "issuer": "IREN Limited",
+          "value": 20499732,
+          "shares": 3366130,
+          "rows": 1,
+          "cusips": [
+            "Q4982L109"
+          ]
+        }
+      ]
+    },
+    {
+      "accession": "0002045724-25-000006",
+      "reportDate": "2025-06-30",
+      "filingDate": "2025-08-14",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000204572425000006/",
+      "informationTableFile": "Salpform13fq2.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 9,
+        "tableValueTotal": 2123023762,
+        "positionRows": 9,
+        "issuerCount": 9,
+        "totalValue": 2123023762,
+        "typeTotals": {
+          "Equity": 1099647394,
+          "Call": 453317760,
+          "Put": 570058608
+        }
+      },
+      "positions": [
+        {
+          "id": "92189F676-Put",
+          "issuer": "VANECK ETF TRUST",
+          "title": "SEMICONDUCTR ETF",
+          "cusip": "92189F676",
+          "value": 570058608,
+          "shares": 2044100,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 2044100
+        },
+        {
+          "id": "458140100-Call",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 453317760,
+          "shares": 20237400,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 20237400
+        },
+        {
+          "id": "11135F101-Equity",
+          "issuer": "BROADCOM INC",
+          "title": "COM",
+          "cusip": "11135F101",
+          "value": 328466194,
+          "shares": 1191606,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1191606,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92840M102-Equity",
+          "issuer": "VISTRA CORP",
+          "title": "COM",
+          "cusip": "92840M102",
+          "value": 246948438,
+          "shares": 1274178,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1274178,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21874A106-Equity",
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "title": "COM",
+          "cusip": "21874A106",
+          "value": 136458229,
+          "shares": 7994038,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 7994038,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "26884L109-Equity",
+          "issuer": "EQT CORP",
+          "title": "COM",
+          "cusip": "26884L109",
+          "value": 125116520,
+          "shares": 2145345,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 2145345,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21037T109-Equity",
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "title": "COM",
+          "cusip": "21037T109",
+          "value": 103024992,
+          "shares": 319200,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 319200,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "Q4982L109-Equity",
+          "issuer": "IREN LIMITED",
+          "title": "ORDINARY SHARES",
+          "cusip": "Q4982L109",
+          "value": 93253595,
+          "shares": 6400384,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6400384,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "38169207-Equity",
+          "issuer": "APPLIED DIGITAL CORP",
+          "title": "COM NEW",
+          "cusip": "38169207",
+          "value": 66379426,
+          "shares": 6591800,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6591800,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "VANECK ETF TRUST",
+          "value": 570058608,
+          "shares": 2044100,
+          "rows": 1,
+          "cusips": [
+            "92189F676"
+          ]
+        },
+        {
+          "issuer": "INTEL CORP",
+          "value": 453317760,
+          "shares": 20237400,
+          "rows": 1,
+          "cusips": [
+            "458140100"
+          ]
+        },
+        {
+          "issuer": "BROADCOM INC",
+          "value": 328466194,
+          "shares": 1191606,
+          "rows": 1,
+          "cusips": [
+            "11135F101"
+          ]
+        },
+        {
+          "issuer": "VISTRA CORP",
+          "value": 246948438,
+          "shares": 1274178,
+          "rows": 1,
+          "cusips": [
+            "92840M102"
+          ]
+        },
+        {
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "value": 136458229,
+          "shares": 7994038,
+          "rows": 1,
+          "cusips": [
+            "21874A106"
+          ]
+        },
+        {
+          "issuer": "EQT CORP",
+          "value": 125116520,
+          "shares": 2145345,
+          "rows": 1,
+          "cusips": [
+            "26884L109"
+          ]
+        },
+        {
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "value": 103024992,
+          "shares": 319200,
+          "rows": 1,
+          "cusips": [
+            "21037T109"
+          ]
+        },
+        {
+          "issuer": "IREN LIMITED",
+          "value": 93253595,
+          "shares": 6400384,
+          "rows": 1,
+          "cusips": [
+            "Q4982L109"
+          ]
+        },
+        {
+          "issuer": "APPLIED DIGITAL CORP",
+          "value": 66379426,
+          "shares": 6591800,
+          "rows": 1,
+          "cusips": [
+            "38169207"
+          ]
+        }
+      ]
+    },
+    {
+      "accession": "0002045724-25-000008",
+      "reportDate": "2025-09-30",
+      "filingDate": "2025-11-14",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000204572425000008/",
+      "informationTableFile": "SALP13FinfotableQ3.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 28,
+        "tableValueTotal": 4138368748,
+        "positionRows": 28,
+        "issuerCount": 25,
+        "totalValue": 4138368748,
+        "typeTotals": {
+          "Equity": 2242916747,
+          "Call": 1008034401,
+          "Put": 887417600
+        }
+      },
+      "positions": [
+        {
+          "id": "458140100-Call",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 678964770,
+          "shares": 20237400,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 20237400
+        },
+        {
+          "id": "21873S108-Equity",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 563200154,
+          "shares": 4115456,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 4115456,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21874A106-Equity",
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "title": "COM",
+          "cusip": "21874A106",
+          "value": 362038780,
+          "shares": 20180534,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 20180534,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "Q4982L109-Equity",
+          "issuer": "IREN LIMITED",
+          "title": "ORDINARY SHARES",
+          "cusip": "Q4982L109",
+          "value": 338854358,
+          "shares": 7220421,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 7220421,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21873S108-Call",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 316739325,
+          "shares": 2314500,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 200000
+        },
+        {
+          "id": "67066G104-Put",
+          "issuer": "NVIDIA CORPORATION",
+          "title": "COM",
+          "cusip": "67066G104",
+          "value": 298528000,
+          "shares": 1600000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 1600000
+        },
+        {
+          "id": "92840M102-Equity",
+          "issuer": "VISTRA CORP",
+          "title": "COM",
+          "cusip": "92840M102",
+          "value": 252327327,
+          "shares": 1287910,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1287910,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92189F106-Put",
+          "issuer": "VANECK ETF TRUST",
+          "title": "SEMICONDUCTR ETF",
+          "cusip": "92189F106",
+          "value": 195816000,
+          "shares": 600000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 600000
+        },
+        {
+          "id": "21873S108-Put",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 191590000,
+          "shares": 1400000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 1400000
+        },
+        {
+          "id": "38169207-Equity",
+          "issuer": "APPLIED DIGITAL CORP",
+          "title": "COM NEW",
+          "cusip": "38169207",
+          "value": 139111716,
+          "shares": 6064155,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6064155,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "36317J209-Equity",
+          "issuer": "GALAXY DIGITAL INC.",
+          "title": "CL A",
+          "cusip": "36317J209",
+          "value": 92554875,
+          "shares": 2737500,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 2737500,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "11135F101-Put",
+          "issuer": "BROADCOM INC",
+          "title": "COM",
+          "cusip": "11135F101",
+          "value": 75879300,
+          "shares": 230000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 230000
+        },
+        {
+          "id": "874039100-Put",
+          "issuer": "TAIWAN SEMICONDUCTOR MFG LTD",
+          "title": "SPONSORED ADS",
+          "cusip": "874039100",
+          "value": 75408300,
+          "shares": 270000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 270000
+        },
+        {
+          "id": "17253JAA4-Equity",
+          "issuer": "CIPHER MINING INC",
+          "title": "COM",
+          "cusip": "17253JAA4",
+          "value": 72272807,
+          "shares": 5740493,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 5740493,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "767292105-Equity",
+          "issuer": "RIOT PLATFORMS INC",
+          "title": "COM",
+          "cusip": "767292105",
+          "value": 68369062,
+          "shares": 3592699,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 3592699,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "55024UAD1-Equity",
+          "issuer": "LUMENTUM HLDGS INC",
+          "title": "COM",
+          "cusip": "55024UAD1",
+          "value": 67947696,
+          "shares": 417600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 417600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "26884L109-Equity",
+          "issuer": "EQT CORP",
+          "title": "COM",
+          "cusip": "26884L109",
+          "value": 66262320,
+          "shares": 1217386,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1217386,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "595112103-Put",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "title": "COM",
+          "cusip": "595112103",
+          "value": 50196000,
+          "shares": 300000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 300000
+        },
+        {
+          "id": "83418M103-Equity",
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "title": "COM CL A",
+          "cusip": "83418M103",
+          "value": 45977491,
+          "shares": 1150300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1150300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "093712AH0-Equity",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "093712AH0",
+          "value": 43890344,
+          "shares": 3048002,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 3048002,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "M87915274-Equity",
+          "issuer": "TOWER SEMICONDUCTOR LTD",
+          "title": "SHS NEW",
+          "cusip": "M87915274",
+          "value": 34024380,
+          "shares": 470600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 470600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "44812J104-Equity",
+          "issuer": "HUT 8 CORP",
+          "title": "COM",
+          "cusip": "44812J104",
+          "value": 20851190,
+          "shares": 599000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 599000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "958102AT2-Equity",
+          "issuer": "WESTERN DIGITAL CORP",
+          "title": "COM",
+          "cusip": "958102AT2",
+          "value": 18347689,
+          "shares": 152821,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 152821,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "19247G107-Equity",
+          "issuer": "COHERENT CORP",
+          "title": "COM",
+          "cusip": "19247G107",
+          "value": 16631968,
+          "shares": 154400,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 154400,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "G11448100-Equity",
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "title": "CL A ORD SHS",
+          "cusip": "G11448100",
+          "value": 15886864,
+          "shares": 929600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 929600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "80004C200-Equity",
+          "issuer": "SANDISK CORP",
+          "title": "COM",
+          "cusip": "80004C200",
+          "value": 12903000,
+          "shares": 115000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 115000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "093712AH0-Call",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "093712AH0",
+          "value": 12330306,
+          "shares": 145800,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 145800
+        },
+        {
+          "id": "G7997R103-Equity",
+          "issuer": "SEAGATE TECHNOLOGY HLDNGS PL",
+          "title": "ORD SHS",
+          "cusip": "G7997R103",
+          "value": 11464726,
+          "shares": 48567,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 48567,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "COREWEAVE INC",
+          "value": 1071529479,
+          "shares": 7829956,
+          "rows": 3,
+          "cusips": [
+            "21873S108"
+          ]
+        },
+        {
+          "issuer": "INTEL CORP",
+          "value": 678964770,
+          "shares": 20237400,
+          "rows": 1,
+          "cusips": [
+            "458140100"
+          ]
+        },
+        {
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "value": 362038780,
+          "shares": 20180534,
+          "rows": 1,
+          "cusips": [
+            "21874A106"
+          ]
+        },
+        {
+          "issuer": "IREN LIMITED",
+          "value": 338854358,
+          "shares": 7220421,
+          "rows": 1,
+          "cusips": [
+            "Q4982L109"
+          ]
+        },
+        {
+          "issuer": "NVIDIA CORPORATION",
+          "value": 298528000,
+          "shares": 1600000,
+          "rows": 1,
+          "cusips": [
+            "67066G104"
+          ]
+        },
+        {
+          "issuer": "VISTRA CORP",
+          "value": 252327327,
+          "shares": 1287910,
+          "rows": 1,
+          "cusips": [
+            "92840M102"
+          ]
+        },
+        {
+          "issuer": "VANECK ETF TRUST",
+          "value": 195816000,
+          "shares": 600000,
+          "rows": 1,
+          "cusips": [
+            "92189F106"
+          ]
+        },
+        {
+          "issuer": "APPLIED DIGITAL CORP",
+          "value": 139111716,
+          "shares": 6064155,
+          "rows": 1,
+          "cusips": [
+            "38169207"
+          ]
+        },
+        {
+          "issuer": "GALAXY DIGITAL INC.",
+          "value": 92554875,
+          "shares": 2737500,
+          "rows": 1,
+          "cusips": [
+            "36317J209"
+          ]
+        },
+        {
+          "issuer": "BROADCOM INC",
+          "value": 75879300,
+          "shares": 230000,
+          "rows": 1,
+          "cusips": [
+            "11135F101"
+          ]
+        },
+        {
+          "issuer": "TAIWAN SEMICONDUCTOR MFG LTD",
+          "value": 75408300,
+          "shares": 270000,
+          "rows": 1,
+          "cusips": [
+            "874039100"
+          ]
+        },
+        {
+          "issuer": "CIPHER MINING INC",
+          "value": 72272807,
+          "shares": 5740493,
+          "rows": 1,
+          "cusips": [
+            "17253JAA4"
+          ]
+        },
+        {
+          "issuer": "RIOT PLATFORMS INC",
+          "value": 68369062,
+          "shares": 3592699,
+          "rows": 1,
+          "cusips": [
+            "767292105"
+          ]
+        },
+        {
+          "issuer": "LUMENTUM HLDGS INC",
+          "value": 67947696,
+          "shares": 417600,
+          "rows": 1,
+          "cusips": [
+            "55024UAD1"
+          ]
+        },
+        {
+          "issuer": "EQT CORP",
+          "value": 66262320,
+          "shares": 1217386,
+          "rows": 1,
+          "cusips": [
+            "26884L109"
+          ]
+        },
+        {
+          "issuer": "BLOOM ENERGY CORP",
+          "value": 56220650,
+          "shares": 3193802,
+          "rows": 2,
+          "cusips": [
+            "093712AH0"
+          ]
+        },
+        {
+          "issuer": "MICRON TECHNOLOGY INC",
+          "value": 50196000,
+          "shares": 300000,
+          "rows": 1,
+          "cusips": [
+            "595112103"
+          ]
+        },
+        {
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "value": 45977491,
+          "shares": 1150300,
+          "rows": 1,
+          "cusips": [
+            "83418M103"
+          ]
+        },
+        {
+          "issuer": "TOWER SEMICONDUCTOR LTD",
+          "value": 34024380,
+          "shares": 470600,
+          "rows": 1,
+          "cusips": [
+            "M87915274"
+          ]
+        },
+        {
+          "issuer": "HUT 8 CORP",
+          "value": 20851190,
+          "shares": 599000,
+          "rows": 1,
+          "cusips": [
+            "44812J104"
+          ]
+        },
+        {
+          "issuer": "WESTERN DIGITAL CORP",
+          "value": 18347689,
+          "shares": 152821,
+          "rows": 1,
+          "cusips": [
+            "958102AT2"
+          ]
+        },
+        {
+          "issuer": "COHERENT CORP",
+          "value": 16631968,
+          "shares": 154400,
+          "rows": 1,
+          "cusips": [
+            "19247G107"
+          ]
+        },
+        {
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "value": 15886864,
+          "shares": 929600,
+          "rows": 1,
+          "cusips": [
+            "G11448100"
+          ]
+        },
+        {
+          "issuer": "SANDISK CORP",
+          "value": 12903000,
+          "shares": 115000,
+          "rows": 1,
+          "cusips": [
+            "80004C200"
+          ]
+        },
+        {
+          "issuer": "SEAGATE TECHNOLOGY HLDNGS PL",
+          "value": 11464726,
+          "shares": 48567,
+          "rows": 1,
+          "cusips": [
+            "G7997R103"
+          ]
+        }
+      ]
+    },
+    {
+      "accession": "0002045724-26-000002",
+      "reportDate": "2025-12-31",
+      "filingDate": "2026-02-11",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000204572426000002/",
+      "informationTableFile": "SALP_13FQ425.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 29,
+        "tableValueTotal": 5516758344,
+        "positionRows": 29,
+        "issuerCount": 25,
+        "totalValue": 5516758345,
+        "typeTotals": {
+          "Equity": 3913647375,
+          "Call": 1594200970,
+          "Put": 8910000
+        }
+      },
+      "positions": [
+        {
+          "id": "93712107-Equity",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "93712107",
+          "value": 875505552,
+          "shares": 10076022,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 10076022,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21873S108-Call",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 774426345,
+          "shares": 10814500,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "458140100-Call",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 746760060,
+          "shares": 20237400,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "55024U109-Equity",
+          "issuer": "LUMENTUM HLDGS INC",
+          "title": "COM",
+          "cusip": "55024U109",
+          "value": 478577256,
+          "shares": 1298400,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1298400,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21873S108-Equity",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 436735927,
+          "shares": 6098812,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6098812,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21874A106-Equity",
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "title": "COM",
+          "cusip": "21874A106",
+          "value": 418694320,
+          "shares": 28756478,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 28756478,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "Q4982L109-Equity",
+          "issuer": "IREN LIMITED",
+          "title": "ORDINARY SHARES",
+          "cusip": "Q4982L109",
+          "value": 328622455,
+          "shares": 8700621,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 8700621,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "38169207-Equity",
+          "issuer": "APPLIED DIGITAL CORP",
+          "title": "COM NEW",
+          "cusip": "38169207",
+          "value": 278033751,
+          "shares": 11339060,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 11339060,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "80004C200-Equity",
+          "issuer": "SANDISK CORP",
+          "title": "COM",
+          "cusip": "80004C200",
+          "value": 250245996,
+          "shares": 1054200,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1054200,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "17253J106-Equity",
+          "issuer": "CIPHER MINING INC",
+          "title": "COM",
+          "cusip": "17253J106",
+          "value": 154523813,
+          "shares": 10469093,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 10469093,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "26884L109-Equity",
+          "issuer": "EQT CORP",
+          "title": "COM",
+          "cusip": "26884L109",
+          "value": 133047260,
+          "shares": 2482225,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 2482225,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "19247G107-Equity",
+          "issuer": "COHERENT CORP",
+          "title": "COM",
+          "cusip": "19247G107",
+          "value": 88648971,
+          "shares": 480300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 480300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "83418M103-Equity",
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "title": "COM CL A",
+          "cusip": "83418M103",
+          "value": 85803005,
+          "shares": 1866500,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1866500,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "M87915274-Equity",
+          "issuer": "TOWER SEMICONDUCTOR LTD",
+          "title": "SHS NEW",
+          "cusip": "M87915274",
+          "value": 84895130,
+          "shares": 723004,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 723004,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "767292105-Equity",
+          "issuer": "RIOT PLATFORMS INC",
+          "title": "COM",
+          "cusip": "767292105",
+          "value": 78144759,
+          "shares": 6167700,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6167700,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "49427F108-Equity",
+          "issuer": "KILROY RLTY CORP",
+          "title": "COM",
+          "cusip": "49427F108",
+          "value": 49616149,
+          "shares": 1327700,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1327700,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "44812J104-Equity",
+          "issuer": "HUT 8 CORP",
+          "title": "COM",
+          "cusip": "44812J104",
+          "value": 39517588,
+          "shares": 860200,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 860200,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "26884L109-Call",
+          "issuer": "EQT CORP",
+          "title": "COM",
+          "cusip": "26884L109",
+          "value": 37520000,
+          "shares": 700000,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "93712107-Call",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "93712107",
+          "value": 35494565,
+          "shares": 408500,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "G96115103-Equity",
+          "issuer": "WHITEFIBER INC",
+          "title": "SHS",
+          "cusip": "G96115103",
+          "value": 27770080,
+          "shares": 1757600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1757600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "73933G202-Equity",
+          "issuer": "POWER SOLUTIONS INTL INC",
+          "title": "COM NEW",
+          "cusip": "73933G202",
+          "value": 24701622,
+          "shares": 432300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 432300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "G11448100-Equity",
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "title": "CL A ORD SHS",
+          "cusip": "G11448100",
+          "value": 20043480,
+          "shares": 1788000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1788000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "18452B209-Equity",
+          "issuer": "CLEANSPARK INC",
+          "title": "COM NEW",
+          "cusip": "18452B209",
+          "value": 16600848,
+          "shares": 1640400,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1640400,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "09173B107-Equity",
+          "issuer": "BITFARMS LTD",
+          "title": "COM",
+          "cusip": "09173B107",
+          "value": 16208185,
+          "shares": 6897100,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6897100,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "53115L104-Equity",
+          "issuer": "LIBERTY ENERGY INC",
+          "title": "COM CL A",
+          "cusip": "53115L104",
+          "value": 10470512,
+          "shares": 567200,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 567200,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "456788108-Put",
+          "issuer": "INFOSYS LTD",
+          "title": "SPONSORED ADR",
+          "cusip": "456788108",
+          "value": 8910000,
+          "shares": 500000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "74347M108-Equity",
+          "issuer": "PROPETRO HLDG CORP",
+          "title": "COM",
+          "cusip": "74347M108",
+          "value": 8656953,
+          "shares": 910300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 910300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "05614L209-Equity",
+          "issuer": "BABCOCK & WILCOX ENTERPRISES",
+          "title": "COM",
+          "cusip": "05614L209",
+          "value": 8583726,
+          "shares": 1353900,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1353900,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "458140100-Equity",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 37,
+          "shares": 1,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "COREWEAVE INC",
+          "value": 1211162272,
+          "shares": 16913312,
+          "rows": 2,
+          "cusips": [
+            "21873S108"
+          ]
+        },
+        {
+          "issuer": "BLOOM ENERGY CORP",
+          "value": 911000117,
+          "shares": 10484522,
+          "rows": 2,
+          "cusips": [
+            "93712107"
+          ]
+        },
+        {
+          "issuer": "INTEL CORP",
+          "value": 746760097,
+          "shares": 20237401,
+          "rows": 2,
+          "cusips": [
+            "458140100"
+          ]
+        },
+        {
+          "issuer": "LUMENTUM HLDGS INC",
+          "value": 478577256,
+          "shares": 1298400,
+          "rows": 1,
+          "cusips": [
+            "55024U109"
+          ]
+        },
+        {
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "value": 418694320,
+          "shares": 28756478,
+          "rows": 1,
+          "cusips": [
+            "21874A106"
+          ]
+        },
+        {
+          "issuer": "IREN LIMITED",
+          "value": 328622455,
+          "shares": 8700621,
+          "rows": 1,
+          "cusips": [
+            "Q4982L109"
+          ]
+        },
+        {
+          "issuer": "APPLIED DIGITAL CORP",
+          "value": 278033751,
+          "shares": 11339060,
+          "rows": 1,
+          "cusips": [
+            "38169207"
+          ]
+        },
+        {
+          "issuer": "SANDISK CORP",
+          "value": 250245996,
+          "shares": 1054200,
+          "rows": 1,
+          "cusips": [
+            "80004C200"
+          ]
+        },
+        {
+          "issuer": "EQT CORP",
+          "value": 170567260,
+          "shares": 3182225,
+          "rows": 2,
+          "cusips": [
+            "26884L109"
+          ]
+        },
+        {
+          "issuer": "CIPHER MINING INC",
+          "value": 154523813,
+          "shares": 10469093,
+          "rows": 1,
+          "cusips": [
+            "17253J106"
+          ]
+        },
+        {
+          "issuer": "COHERENT CORP",
+          "value": 88648971,
+          "shares": 480300,
+          "rows": 1,
+          "cusips": [
+            "19247G107"
+          ]
+        },
+        {
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "value": 85803005,
+          "shares": 1866500,
+          "rows": 1,
+          "cusips": [
+            "83418M103"
+          ]
+        },
+        {
+          "issuer": "TOWER SEMICONDUCTOR LTD",
+          "value": 84895130,
+          "shares": 723004,
+          "rows": 1,
+          "cusips": [
+            "M87915274"
+          ]
+        },
+        {
+          "issuer": "RIOT PLATFORMS INC",
+          "value": 78144759,
+          "shares": 6167700,
+          "rows": 1,
+          "cusips": [
+            "767292105"
+          ]
+        },
+        {
+          "issuer": "KILROY RLTY CORP",
+          "value": 49616149,
+          "shares": 1327700,
+          "rows": 1,
+          "cusips": [
+            "49427F108"
+          ]
+        },
+        {
+          "issuer": "HUT 8 CORP",
+          "value": 39517588,
+          "shares": 860200,
+          "rows": 1,
+          "cusips": [
+            "44812J104"
+          ]
+        },
+        {
+          "issuer": "WHITEFIBER INC",
+          "value": 27770080,
+          "shares": 1757600,
+          "rows": 1,
+          "cusips": [
+            "G96115103"
+          ]
+        },
+        {
+          "issuer": "POWER SOLUTIONS INTL INC",
+          "value": 24701622,
+          "shares": 432300,
+          "rows": 1,
+          "cusips": [
+            "73933G202"
+          ]
+        },
+        {
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "value": 20043480,
+          "shares": 1788000,
+          "rows": 1,
+          "cusips": [
+            "G11448100"
+          ]
+        },
+        {
+          "issuer": "CLEANSPARK INC",
+          "value": 16600848,
+          "shares": 1640400,
+          "rows": 1,
+          "cusips": [
+            "18452B209"
+          ]
+        },
+        {
+          "issuer": "BITFARMS LTD",
+          "value": 16208185,
+          "shares": 6897100,
+          "rows": 1,
+          "cusips": [
+            "09173B107"
+          ]
+        },
+        {
+          "issuer": "LIBERTY ENERGY INC",
+          "value": 10470512,
+          "shares": 567200,
+          "rows": 1,
+          "cusips": [
+            "53115L104"
+          ]
+        },
+        {
+          "issuer": "INFOSYS LTD",
+          "value": 8910000,
+          "shares": 500000,
+          "rows": 1,
+          "cusips": [
+            "456788108"
+          ]
+        },
+        {
+          "issuer": "PROPETRO HLDG CORP",
+          "value": 8656953,
+          "shares": 910300,
+          "rows": 1,
+          "cusips": [
+            "74347M108"
+          ]
+        },
+        {
+          "issuer": "BABCOCK & WILCOX ENTERPRISES",
+          "value": 8583726,
+          "shares": 1353900,
+          "rows": 1,
+          "cusips": [
+            "05614L209"
+          ]
+        }
+      ]
+    },
+    {
+      "accession": "0002045724-26-000008",
+      "reportDate": "2026-03-31",
+      "filingDate": "2026-05-18",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/2045724/000204572426000008/",
+      "informationTableFile": "salp13fq1xml.xml",
+      "summary": {
+        "manager": "Situational Awareness LP",
+        "tableEntryTotal": 42,
+        "tableValueTotal": 13676657577,
+        "positionRows": 42,
+        "issuerCount": 29,
+        "totalValue": 13676657577,
+        "typeTotals": {
+          "Put": 8459056999,
+          "Equity": 3855771552,
+          "Call": 1361829026
+        }
+      },
+      "positions": [
+        {
+          "id": "92189F676-Put",
+          "issuer": "VANECK ETF TRUST",
+          "title": "SEMICONDUCTR ETF",
+          "cusip": "92189F676",
+          "value": 2042716860,
+          "shares": 5327900,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 5327900
+        },
+        {
+          "id": "67066G104-Put",
+          "issuer": "NVIDIA CORPORATION",
+          "title": "COM",
+          "cusip": "67066G104",
+          "value": 1568257120,
+          "shares": 8992300,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 8992300
+        },
+        {
+          "id": "68389X105-Put",
+          "issuer": "ORACLE CORP",
+          "title": "COM",
+          "cusip": "68389X105",
+          "value": 1072873230,
+          "shares": 7293000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 7293000
+        },
+        {
+          "id": "11135F101-Put",
+          "issuer": "BROADCOM INC",
+          "title": "COM",
+          "cusip": "11135F101",
+          "value": 1006247961,
+          "shares": 3251100,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 3251100
+        },
+        {
+          "id": "7903107-Put",
+          "issuer": "ADVANCED MICRO DEVICES INC",
+          "title": "COM",
+          "cusip": "7903107",
+          "value": 969160863,
+          "shares": 4764100,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 4764100
+        },
+        {
+          "id": "93712107-Equity",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "93712107",
+          "value": 878707930,
+          "shares": 6485408,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 6485408,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "80004C200-Equity",
+          "issuer": "SANDISK CORP",
+          "title": "COM",
+          "cusip": "80004C200",
+          "value": 724363205,
+          "shares": 1140119,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1140119,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "595112103-Put",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "title": "COM",
+          "cusip": "595112103",
+          "value": 583686168,
+          "shares": 1727700,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 1727700
+        },
+        {
+          "id": "21873S108-Equity",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 556073385,
+          "shares": 7177919,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 7177919,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "874039100-Put",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "title": "SPONSORED ADS",
+          "cusip": "874039100",
+          "value": 535110030,
+          "shares": 1583400,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 1583400
+        },
+        {
+          "id": "N07059210-Put",
+          "issuer": "ASML HLDG NV N Y REGISTRY",
+          "title": "SHS",
+          "cusip": "N07059210",
+          "value": 494122503,
+          "shares": 374100,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 374100
+        },
+        {
+          "id": "595112103-Call",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "title": "COM",
+          "cusip": "595112103",
+          "value": 422300000,
+          "shares": 1250000,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "Q4982L109-Equity",
+          "issuer": "IREN LIMITED",
+          "title": "ORDINARY SHARES",
+          "cusip": "Q4982L109",
+          "value": 401036064,
+          "shares": 11698835,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 11698835,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21874A106-Equity",
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "title": "COM",
+          "cusip": "21874A106",
+          "value": 389086756,
+          "shares": 26008473,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 26008473,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "80004C200-Call",
+          "issuer": "SANDISK CORP",
+          "title": "COM",
+          "cusip": "80004C200",
+          "value": 388764546,
+          "shares": 611900,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "874039100-Call",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "title": "SPONSORED ADS",
+          "cusip": "874039100",
+          "value": 354847500,
+          "shares": 1050000,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "38169207-Equity",
+          "issuer": "APPLIED DIGITAL CORP",
+          "title": "COM NEW",
+          "cusip": "38169207",
+          "value": 319978118,
+          "shares": 13478438,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 13478438,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "458140100-Put",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 159106302,
+          "shares": 3605400,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 3605400
+        },
+        {
+          "id": "767292105-Equity",
+          "issuer": "RIOT PLATFORMS INC",
+          "title": "COM",
+          "cusip": "767292105",
+          "value": 142166413,
+          "shares": 11502137,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 11502137,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "21873S108-Call",
+          "issuer": "COREWEAVE INC",
+          "title": "COM CL A",
+          "cusip": "21873S108",
+          "value": 140569315,
+          "shares": 1814500,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "18452B209-Equity",
+          "issuer": "CLEANSPARK INC",
+          "title": "COM NEW",
+          "cusip": "18452B209",
+          "value": 104469943,
+          "shares": 12276139,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 12276139,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "83418M103-Equity",
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "title": "COM CL A",
+          "cusip": "83418M103",
+          "value": 62474687,
+          "shares": 1105551,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1105551,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "93712107-Call",
+          "issuer": "BLOOM ENERGY CORP",
+          "title": "COM CL A",
+          "cusip": "93712107",
+          "value": 55347665,
+          "shares": 408500,
+          "shareType": "SH",
+          "positionType": "Call",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "35834F104-Equity",
+          "issuer": "T1 ENERGY INC",
+          "title": "COM NEW",
+          "cusip": "35834F104",
+          "value": 43900000,
+          "shares": 10000000,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 10000000,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "09173B107-Equity",
+          "issuer": "BITFARMS LTD",
+          "title": "COM",
+          "cusip": "09173B107",
+          "value": 38757888,
+          "shares": 19875840,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 19875840,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "G11448100-Equity",
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "title": "CL A ORD SHS",
+          "cusip": "G11448100",
+          "value": 29751243,
+          "shares": 3439450,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 3439450,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "73933G202-Equity",
+          "issuer": "POWER SOLUTIONS INTL INC",
+          "title": "COM NEW",
+          "cusip": "73933G202",
+          "value": 26318424,
+          "shares": 432300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 432300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "219350105-Put",
+          "issuer": "CORNING INC",
+          "title": "COM",
+          "cusip": "219350105",
+          "value": 21020962,
+          "shares": 154600,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 154600
+        },
+        {
+          "id": "G96115103-Equity",
+          "issuer": "WHITEFIBER INC",
+          "title": "SHS",
+          "cusip": "G96115103",
+          "value": 20933016,
+          "shares": 1757600,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1757600,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "7903107-Equity",
+          "issuer": "ADVANCED MICRO DEVICES INC",
+          "title": "COM",
+          "cusip": "7903107",
+          "value": 20167643,
+          "shares": 99138,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 99138,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "05614L209-Equity",
+          "issuer": "BABCOCK & WILCOX ENTERPRISES",
+          "title": "COM",
+          "cusip": "05614L209",
+          "value": 19888791,
+          "shares": 1353900,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 1353900,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "778920306-Equity",
+          "issuer": "SHARONAI HOLDINGS INC",
+          "title": "COM CL A ADDED",
+          "cusip": "778920306",
+          "value": 18095535,
+          "shares": 796108,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 796108,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "74347M108-Equity",
+          "issuer": "PROPETRO HLDG CORP",
+          "title": "COM",
+          "cusip": "74347M108",
+          "value": 13117423,
+          "shares": 910300,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 910300,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "92189F676-Equity",
+          "issuer": "VANECK ETF TRUST",
+          "title": "SEMICONDUCTR ETF",
+          "cusip": "92189F676",
+          "value": 10332630,
+          "shares": 26950,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 26950,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "458140100-Equity",
+          "issuer": "INTEL CORP",
+          "title": "COM",
+          "cusip": "458140100",
+          "value": 8929441,
+          "shares": 202344,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 202344,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "874039100-Equity",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "title": "SPONSORED ADS",
+          "cusip": "874039100",
+          "value": 7577853,
+          "shares": 22423,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 22423,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "456788108-Put",
+          "issuer": "INFOSYS LTD",
+          "title": "SPONSORED ADR",
+          "cusip": "456788108",
+          "value": 6755000,
+          "shares": 500000,
+          "shareType": "SH",
+          "positionType": "Put",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 0,
+          "votingShared": 0,
+          "votingNone": 500000
+        },
+        {
+          "id": "433921103-Equity",
+          "issuer": "HIVE DIGITAL TECHNOLOGIES LT",
+          "title": "COM NEW",
+          "cusip": "433921103",
+          "value": 6443939,
+          "shares": 3391547,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 3391547,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "N07059210-Equity",
+          "issuer": "ASML HLDG NV N Y REGISTRY",
+          "title": "SHS",
+          "cusip": "N07059210",
+          "value": 6119405,
+          "shares": 4633,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 4633,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "595112103-Equity",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "title": "COM",
+          "cusip": "595112103",
+          "value": 5865578,
+          "shares": 17362,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 17362,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "219350105-Equity",
+          "issuer": "CORNING INC",
+          "title": "COM",
+          "cusip": "219350105",
+          "value": 718330,
+          "shares": 5283,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 5283,
+          "votingShared": 0,
+          "votingNone": 0
+        },
+        {
+          "id": "67066G104-Equity",
+          "issuer": "NVIDIA CORPORATION",
+          "title": "COM",
+          "cusip": "67066G104",
+          "value": 497912,
+          "shares": 2855,
+          "shareType": "SH",
+          "positionType": "Equity",
+          "investmentDiscretion": "SOLE",
+          "votingSole": 2855,
+          "votingShared": 0,
+          "votingNone": 0
+        }
+      ],
+      "issuers": [
+        {
+          "issuer": "VANECK ETF TRUST",
+          "value": 2053049490,
+          "shares": 5354850,
+          "rows": 2,
+          "cusips": [
+            "92189F676"
+          ]
+        },
+        {
+          "issuer": "NVIDIA CORPORATION",
+          "value": 1568755032,
+          "shares": 8995155,
+          "rows": 2,
+          "cusips": [
+            "67066G104"
+          ]
+        },
+        {
+          "issuer": "SANDISK CORP",
+          "value": 1113127751,
+          "shares": 1752019,
+          "rows": 2,
+          "cusips": [
+            "80004C200"
+          ]
+        },
+        {
+          "issuer": "ORACLE CORP",
+          "value": 1072873230,
+          "shares": 7293000,
+          "rows": 1,
+          "cusips": [
+            "68389X105"
+          ]
+        },
+        {
+          "issuer": "MICRON TECHNOLOGY INC",
+          "value": 1011851746,
+          "shares": 2995062,
+          "rows": 3,
+          "cusips": [
+            "595112103"
+          ]
+        },
+        {
+          "issuer": "BROADCOM INC",
+          "value": 1006247961,
+          "shares": 3251100,
+          "rows": 1,
+          "cusips": [
+            "11135F101"
+          ]
+        },
+        {
+          "issuer": "ADVANCED MICRO DEVICES INC",
+          "value": 989328506,
+          "shares": 4863238,
+          "rows": 2,
+          "cusips": [
+            "7903107"
+          ]
+        },
+        {
+          "issuer": "BLOOM ENERGY CORP",
+          "value": 934055595,
+          "shares": 6893908,
+          "rows": 2,
+          "cusips": [
+            "93712107"
+          ]
+        },
+        {
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "value": 897535383,
+          "shares": 2655823,
+          "rows": 3,
+          "cusips": [
+            "874039100"
+          ]
+        },
+        {
+          "issuer": "COREWEAVE INC",
+          "value": 696642700,
+          "shares": 8992419,
+          "rows": 2,
+          "cusips": [
+            "21873S108"
+          ]
+        },
+        {
+          "issuer": "ASML HLDG NV N Y REGISTRY",
+          "value": 500241908,
+          "shares": 378733,
+          "rows": 2,
+          "cusips": [
+            "N07059210"
+          ]
+        },
+        {
+          "issuer": "IREN LIMITED",
+          "value": 401036064,
+          "shares": 11698835,
+          "rows": 1,
+          "cusips": [
+            "Q4982L109"
+          ]
+        },
+        {
+          "issuer": "CORE SCIENTIFIC INC NEW",
+          "value": 389086756,
+          "shares": 26008473,
+          "rows": 1,
+          "cusips": [
+            "21874A106"
+          ]
+        },
+        {
+          "issuer": "APPLIED DIGITAL CORP",
+          "value": 319978118,
+          "shares": 13478438,
+          "rows": 1,
+          "cusips": [
+            "38169207"
+          ]
+        },
+        {
+          "issuer": "INTEL CORP",
+          "value": 168035743,
+          "shares": 3807744,
+          "rows": 2,
+          "cusips": [
+            "458140100"
+          ]
+        },
+        {
+          "issuer": "RIOT PLATFORMS INC",
+          "value": 142166413,
+          "shares": 11502137,
+          "rows": 1,
+          "cusips": [
+            "767292105"
+          ]
+        },
+        {
+          "issuer": "CLEANSPARK INC",
+          "value": 104469943,
+          "shares": 12276139,
+          "rows": 1,
+          "cusips": [
+            "18452B209"
+          ]
+        },
+        {
+          "issuer": "SOLARIS ENERGY INFRAS INC",
+          "value": 62474687,
+          "shares": 1105551,
+          "rows": 1,
+          "cusips": [
+            "83418M103"
+          ]
+        },
+        {
+          "issuer": "T1 ENERGY INC",
+          "value": 43900000,
+          "shares": 10000000,
+          "rows": 1,
+          "cusips": [
+            "35834F104"
+          ]
+        },
+        {
+          "issuer": "BITFARMS LTD",
+          "value": 38757888,
+          "shares": 19875840,
+          "rows": 1,
+          "cusips": [
+            "09173B107"
+          ]
+        },
+        {
+          "issuer": "BITDEER TECHNOLOGIES GROUP",
+          "value": 29751243,
+          "shares": 3439450,
+          "rows": 1,
+          "cusips": [
+            "G11448100"
+          ]
+        },
+        {
+          "issuer": "POWER SOLUTIONS INTL INC",
+          "value": 26318424,
+          "shares": 432300,
+          "rows": 1,
+          "cusips": [
+            "73933G202"
+          ]
+        },
+        {
+          "issuer": "CORNING INC",
+          "value": 21739292,
+          "shares": 159883,
+          "rows": 2,
+          "cusips": [
+            "219350105"
+          ]
+        },
+        {
+          "issuer": "WHITEFIBER INC",
+          "value": 20933016,
+          "shares": 1757600,
+          "rows": 1,
+          "cusips": [
+            "G96115103"
+          ]
+        },
+        {
+          "issuer": "BABCOCK & WILCOX ENTERPRISES",
+          "value": 19888791,
+          "shares": 1353900,
+          "rows": 1,
+          "cusips": [
+            "05614L209"
+          ]
+        },
+        {
+          "issuer": "SHARONAI HOLDINGS INC",
+          "value": 18095535,
+          "shares": 796108,
+          "rows": 1,
+          "cusips": [
+            "778920306"
+          ]
+        },
+        {
+          "issuer": "PROPETRO HLDG CORP",
+          "value": 13117423,
+          "shares": 910300,
+          "rows": 1,
+          "cusips": [
+            "74347M108"
+          ]
+        },
+        {
+          "issuer": "INFOSYS LTD",
+          "value": 6755000,
+          "shares": 500000,
+          "rows": 1,
+          "cusips": [
+            "456788108"
+          ]
+        },
+        {
+          "issuer": "HIVE DIGITAL TECHNOLOGIES LT",
+          "value": 6443939,
+          "shares": 3391547,
+          "rows": 1,
+          "cusips": [
+            "433921103"
+          ]
+        }
+      ]
+    }
+  ],
+  "allIssuers": [
+    "ADVANCED MICRO DEVICES INC",
+    "APPLIED DIGITAL CORP",
+    "ASML HLDG NV N Y REGISTRY",
+    "Applied Digital Corp",
+    "BABCOCK & WILCOX ENTERPRISES",
+    "BITDEER TECHNOLOGIES GROUP",
+    "BITFARMS LTD",
+    "BLOOM ENERGY CORP",
+    "BROADCOM INC",
+    "Broadcom Inc",
+    "CIPHER MINING INC",
+    "CLEANSPARK INC",
+    "COHERENT CORP",
+    "CONSTELLATION ENERGY CORP",
+    "CORE SCIENTIFIC INC NEW",
+    "COREWEAVE INC",
+    "CORNING INC",
+    "Constellation Energy Corp",
+    "Core Scientific Inc New",
+    "CoreWeave Inc",
+    "EQT CORP",
+    "EQT Corp",
+    "GALAXY DIGITAL INC.",
+    "HIVE DIGITAL TECHNOLOGIES LT",
+    "HUT 8 CORP",
+    "INFOSYS LTD",
+    "INTEL CORP",
+    "IREN LIMITED",
+    "IREN Limited",
+    "Intel Corp",
+    "KILROY RLTY CORP",
+    "LIBERTY ENERGY INC",
+    "LUMENTUM HLDGS INC",
+    "MARVELL TECHNOLOGY INC",
+    "MICRON TECHNOLOGY INC",
+    "MODINE MFG CO",
+    "Modine Mfg Co",
+    "NVIDIA CORPORATION",
+    "ORACLE CORP",
+    "Onto Innovation Inc",
+    "POWER SOLUTIONS INTL INC",
+    "PROPETRO HLDG CORP",
+    "RIOT PLATFORMS INC",
+    "SANDISK CORP",
+    "SEAGATE TECHNOLOGY HLDNGS PL",
+    "SHARONAI HOLDINGS INC",
+    "SOLARIS ENERGY INFRAS INC",
+    "T1 ENERGY INC",
+    "TAIWAN SEMICONDUCTOR MANUFAC",
+    "TAIWAN SEMICONDUCTOR MFG LTD",
+    "TALEN ENERGY CORP",
+    "TOWER SEMICONDUCTOR LTD",
+    "Talen Energy Corp",
+    "VANECK ETF TRUST",
+    "VERTIV HOLDINGS CO",
+    "VISTRA CORP",
+    "Vistra Corp",
+    "WESTERN DIGITAL CORP",
+    "WHITEFIBER INC"
+  ],
+  "allPositionTypes": [
+    "Call",
+    "Equity",
+    "Put"
+  ]
+}
