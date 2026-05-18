@@ -94,6 +94,13 @@ type PriceChartPoint = PricePoint & {
   marker?: PriceMarker;
 };
 
+type OverlaySecurity = PriceSecurity & {
+  chartKey: string;
+  color: string;
+  latestPercent: number;
+  markerPoints: Record<string, number | string>[];
+};
+
 type PriceMarker = {
   reportDate: string;
   filingDate: string;
@@ -318,6 +325,33 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: ChartTool
       <strong>{allocation.issuer}</strong>
       <div>Value: {compactCurrency.format(allocation.value)}</div>
       <div>Weight: {pct(allocation.percent)}</div>
+    </div>
+  );
+}
+
+function PercentTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: ChartTooltipPayload[];
+  label?: string;
+}) {
+  if (!active || !payload?.length) return null;
+  const visiblePayload = payload
+    .filter((entry) => typeof entry.value === "number")
+    .sort((a, b) => Math.abs(Number(b.value)) - Math.abs(Number(a.value)))
+    .slice(0, 12);
+
+  return (
+    <div className="chart-tooltip">
+      <strong>{label}</strong>
+      {visiblePayload.map((entry) => (
+        <div key={entry.dataKey} style={{ color: entry.color }}>
+          {entry.name ?? entry.dataKey}: {pct(Number(entry.value))}
+        </div>
+      ))}
     </div>
   );
 }
@@ -606,6 +640,39 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       setActivePriceMarker(marker);
     }
   };
+  const overlayDates = [...new Set(priceSecurities.flatMap((security) => security.prices.map((point) => point.date)))].sort();
+  const overlaySecurities: OverlaySecurity[] = priceSecurities.map((security, index) => {
+    const chartKey = `equity_${index}`;
+    const firstPrice = security.prices[0]?.adjustedClose ?? 0;
+    const latestPrice = security.prices.at(-1)?.adjustedClose ?? firstPrice;
+    return {
+      ...security,
+      chartKey,
+      color: COLORS[index % COLORS.length],
+      latestPercent: firstPrice === 0 ? 0 : ((latestPrice - firstPrice) / firstPrice) * 100,
+      markerPoints: security.markers.map((marker) => ({
+        date: marker.date,
+        [chartKey]: firstPrice === 0 ? 0 : ((marker.price - firstPrice) / firstPrice) * 100,
+      })),
+    };
+  });
+  const overlayPriceMaps = new Map(
+    overlaySecurities.map((security) => [
+      security.chartKey,
+      new Map(security.prices.map((point) => [point.date, point.adjustedClose])),
+    ]),
+  );
+  const overlayChartData = overlayDates.map((date) => {
+    const row: Record<string, number | string> = { date };
+    for (const security of overlaySecurities) {
+      const firstPrice = security.prices[0]?.adjustedClose ?? 0;
+      const price = overlayPriceMaps.get(security.chartKey)?.get(date);
+      if (firstPrice > 0 && price) {
+        row[security.chartKey] = ((price - firstPrice) / firstPrice) * 100;
+      }
+    }
+    return row;
+  });
   const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
   const simulatorValues = simulator.series.flatMap((point) =>
     [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
@@ -905,6 +972,59 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 <em>{compactCurrency.format(marker.delta)}</em>
               </a>
             ))}
+          </div>
+        </ChartPanel>
+
+        <ChartPanel title="All Equity Price Performance Overlay" icon={<Activity size={18} />} wide>
+          <div className="price-tools">
+            <div className="price-summary">
+              <strong>{overlaySecurities.length} equities</strong>
+              <span>Each line is normalized to 0% at that equity&apos;s first available price</span>
+            </div>
+          </div>
+          <ResponsiveContainer width="100%" height={460}>
+            <ComposedChart data={overlayChartData}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
+              <YAxis tickFormatter={(value) => pct(Number(value))} width={74} />
+              <Tooltip content={<PercentTooltip />} />
+              <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
+              {overlaySecurities.map((security) => (
+                <Line
+                  key={security.chartKey}
+                  type="monotone"
+                  dataKey={security.chartKey}
+                  name={`${security.displayName} (${security.ticker})`}
+                  stroke={security.color}
+                  strokeOpacity={0.68}
+                  strokeWidth={1.5}
+                  dot={false}
+                  connectNulls={false}
+                />
+              ))}
+              {overlaySecurities.map((security) => (
+                <Scatter
+                  key={`${security.chartKey}-markers`}
+                  data={security.markerPoints}
+                  dataKey={security.chartKey}
+                  name={`${security.displayName} holding change`}
+                  fill={security.color}
+                />
+              ))}
+            </ComposedChart>
+          </ResponsiveContainer>
+          <div className="overlay-legend">
+            {overlaySecurities
+              .slice()
+              .sort((a, b) => b.latestPercent - a.latestPercent)
+              .map((security) => (
+                <div key={security.chartKey} className="overlay-legend-item">
+                  <span className="swatch" style={{ background: security.color }} />
+                  <strong>{security.ticker}</strong>
+                  <span>{security.displayName}</span>
+                  <em className={security.latestPercent >= 0 ? "positive" : "negative"}>{pct(security.latestPercent)}</em>
+                </div>
+              ))}
           </div>
         </ChartPanel>
 

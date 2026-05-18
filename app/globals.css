@@ -407,6 +407,48 @@ h1 {
   border-radius: 2px;
 }
 
+.overlay-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+  margin-top: 12px;
+  border: 1px solid #e7edf5;
+  padding: 10px;
+}
+
+.overlay-legend-item {
+  display: grid;
+  grid-template-columns: 12px 54px minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.overlay-legend-item .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.overlay-legend-item strong,
+.overlay-legend-item em {
+  font-style: normal;
+  font-weight: 800;
+}
+
+.overlay-legend-item span:not(.swatch) {
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overlay-legend-item em {
+  text-align: right;
+}
+
 .positions-section {
   margin-top: 12px;
 }
