@@ -329,6 +329,10 @@ h1 {
   font-size: 12px;
 }
 
+.filing-events a:hover {
+  border-color: var(--blue);
+}
+
 .filing-events span {
   color: var(--muted);
   font-weight: 800;

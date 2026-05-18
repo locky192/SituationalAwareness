@@ -21,6 +21,7 @@ import {
   Legend,
   Line,
   LineChart,
+  ReferenceArea,
   ResponsiveContainer,
   Scatter,
   Tooltip,
@@ -94,6 +95,8 @@ type PriceMarker = {
   filingDate: string;
   date: string;
   price: number;
+  windowStartDate: string;
+  windowEndDate: string;
   value: number;
   priorValue: number;
   delta: number;
@@ -221,11 +224,12 @@ function PriceTooltip({ active, payload, label }: { active?: boolean; payload?: 
 
   return (
     <div className="chart-tooltip">
-      <strong>{marker?.filingDate ?? label}</strong>
-      <div>{marker ? "Filing marker" : "Adjusted close"}: {compactCurrency.format(payload[0].value ?? 0)}</div>
+      <strong>{marker?.reportDate ?? label}</strong>
+      <div>{marker ? "Quarter-end holding" : "Adjusted close"}: {compactCurrency.format(payload[0].value ?? 0)}</div>
       {marker ? (
         <>
-          <div>Report: {marker.reportDate}</div>
+          <div>Possible change window: {marker.windowStartDate} to {marker.windowEndDate}</div>
+          <div>Filed: {marker.filingDate}</div>
           <div>Exposure: {compactCurrency.format(marker.value)}</div>
           <div>Change: {compactCurrency.format(marker.delta)}</div>
         </>
@@ -237,6 +241,7 @@ function PriceTooltip({ active, payload, label }: { active?: boolean; payload?: 
 export function PortfolioDashboard({ data, priceData }: { data: FilingsData; priceData: PriceData }) {
   const [selectedIssuer, setSelectedIssuer] = useState("NVIDIA CORP");
   const [selectedPriceIssuer, setSelectedPriceIssuer] = useState("BLOOM ENERGY CORP");
+  const [activePriceMarker, setActivePriceMarker] = useState<PriceMarker | null>(null);
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
   const [query, setQuery] = useState("");
 
@@ -346,6 +351,12 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       markerPrice: marker?.price ?? null,
     };
   });
+  const showPriceMarker = (point: unknown) => {
+    const marker = (point as { payload?: PriceChartPoint })?.payload?.marker;
+    if (marker) {
+      setActivePriceMarker(marker);
+    }
+  };
 
   return (
     <main>
@@ -506,7 +517,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 {selectedSecurity?.ticker} {pct(priceChange)}
               </strong>
               <span>
-                {selectedSecurity?.markers.length ?? 0} filing changes
+                {selectedSecurity?.markers.length ?? 0} reported holding changes
                 {latestMarker ? `, latest exposure ${compactCurrency.format(latestMarker.value)}` : ""}
               </span>
             </div>
@@ -517,6 +528,16 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
               <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
               <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
               <Tooltip content={<PriceTooltip />} />
+              {activePriceMarker ? (
+                <ReferenceArea
+                  x1={activePriceMarker.windowStartDate}
+                  x2={activePriceMarker.windowEndDate}
+                  fill="#2563eb"
+                  fillOpacity={0.12}
+                  stroke="#2563eb"
+                  strokeOpacity={0.35}
+                />
+              ) : null}
               <Line
                 type="monotone"
                 dataKey="adjustedClose"
@@ -525,13 +546,19 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 strokeWidth={2.5}
                 dot={false}
               />
-              <Scatter dataKey="markerPrice" name="Filing change" fill="#dc2626" />
+              <Scatter
+                dataKey="markerPrice"
+                name="Reported holding change"
+                fill="#dc2626"
+                onMouseEnter={showPriceMarker}
+                onMouseLeave={() => setActivePriceMarker(null)}
+              />
             </ComposedChart>
           </ResponsiveContainer>
           <div className="filing-events">
             {(selectedSecurity?.markers ?? []).map((marker) => (
               <a key={`${marker.accession}-${marker.date}`} href={marker.sourceUrl} target="_blank" rel="noreferrer">
-                <span>{marker.filingDate}</span>
+                <span>{marker.reportDate}</span>
                 <strong>{compactCurrency.format(marker.value)}</strong>
                 <em>{compactCurrency.format(marker.delta)}</em>
               </a>

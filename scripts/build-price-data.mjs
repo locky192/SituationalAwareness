@@ -67,6 +67,16 @@ function nextTradingPrice(prices, date) {
   return prices.find((point) => point.date >= date) ?? prices.at(-1);
 }
 
+function previousTradingPrice(prices, date) {
+  return prices.findLast((point) => point.date <= date) ?? prices[0];
+}
+
+function quarterStartDate(reportDate) {
+  const [year, month] = reportDate.split("-").map(Number);
+  const quarterStartMonth = Math.floor((month - 1) / 3) * 3;
+  return new Date(Date.UTC(year, quarterStartMonth, 1)).toISOString().slice(0, 10);
+}
+
 async function fetchPrices(ticker, startDate, endDate) {
   const period1 = Math.floor(new Date(`${startDate}T00:00:00Z`).getTime() / 1000);
   const period2 = Math.floor(new Date(`${endDate}T00:00:00Z`).getTime() / 1000);
@@ -94,6 +104,7 @@ async function fetchPrices(ticker, startDate, endDate) {
 const data = JSON.parse(await readFile(filingsPath, "utf8"));
 const reportDates = data.filings.map((filing) => filing.reportDate);
 const firstReport = reportDates[0];
+const startDate = quarterStartDate(firstReport);
 const endDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
 const canonicalNames = [
@@ -123,7 +134,7 @@ for (const canonicalName of canonicalNames) {
   }
 
   try {
-    const prices = await fetchPrices(mapping.ticker, firstReport, endDate);
+    const prices = await fetchPrices(mapping.ticker, startDate, endDate);
     let previousValue = 0;
     const markers = data.filings
       .map((filing) => {
@@ -132,13 +143,17 @@ for (const canonicalName of canonicalNames) {
         const priorValue = previousValue;
         previousValue = value;
         if (!changed) return null;
-        const pricePoint = nextTradingPrice(prices, filing.filingDate);
-        if (!pricePoint) return null;
+        const holdingPricePoint = previousTradingPrice(prices, filing.reportDate);
+        const windowStartPoint = nextTradingPrice(prices, quarterStartDate(filing.reportDate));
+        const windowEndPoint = previousTradingPrice(prices, filing.reportDate);
+        if (!holdingPricePoint || !windowStartPoint || !windowEndPoint) return null;
         return {
           reportDate: filing.reportDate,
           filingDate: filing.filingDate,
-          date: pricePoint.date,
-          price: pricePoint.adjustedClose,
+          date: holdingPricePoint.date,
+          price: holdingPricePoint.adjustedClose,
+          windowStartDate: windowStartPoint.date,
+          windowEndDate: windowEndPoint.date,
           value,
           priorValue,
           delta: value - priorValue,
@@ -174,7 +189,7 @@ await writeFile(
   `${JSON.stringify(
     {
       generatedAt: "generated from Yahoo Finance chart API",
-      startDate: firstReport,
+      startDate,
       endDate,
       securities,
     },
