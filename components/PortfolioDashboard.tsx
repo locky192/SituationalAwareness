@@ -555,6 +555,15 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     }
   };
   const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
+  const simulatorValues = simulator.series.flatMap((point) =>
+    [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
+  );
+  const simulatorMinValue = Math.min(...simulatorValues);
+  const simulatorMaxValue = Math.max(...simulatorValues);
+  const simulatorLogDomain: [number, number] = [
+    Math.max(1, simulatorMinValue * 0.92),
+    simulatorMaxValue * 1.08,
+  ];
 
   return (
     <main>
@@ -822,7 +831,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
               <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
               <YAxis
                 allowDataOverflow={simulatorScale === "log"}
-                domain={simulatorScale === "log" ? [9000, "dataMax"] : undefined}
+                domain={simulatorScale === "log" ? simulatorLogDomain : undefined}
                 scale={simulatorScale}
                 tickFormatter={(value) => compactCurrency.format(Number(value))}
                 width={74}
