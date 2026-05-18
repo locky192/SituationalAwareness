@@ -22,6 +22,7 @@ import {
   Line,
   LineChart,
   ResponsiveContainer,
+  Scatter,
   Tooltip,
   Treemap,
   XAxis,
@@ -75,6 +76,40 @@ export type FilingsData = {
   filings: Filing[];
   allIssuers: string[];
   allPositionTypes: string[];
+};
+
+type PricePoint = {
+  date: string;
+  close: number;
+  adjustedClose: number;
+};
+
+type PriceMarker = {
+  reportDate: string;
+  filingDate: string;
+  date: string;
+  price: number;
+  value: number;
+  priorValue: number;
+  delta: number;
+  accession: string;
+  sourceUrl: string;
+};
+
+type PriceSecurity = {
+  issuer: string;
+  ticker: string | null;
+  displayName: string;
+  prices: PricePoint[];
+  markers: PriceMarker[];
+  error: string | null;
+};
+
+export type PriceData = {
+  generatedAt: string;
+  startDate: string;
+  endDate: string;
+  securities: PriceSecurity[];
 };
 
 const COLORS = [
@@ -149,6 +184,7 @@ type ChartTooltipPayload = {
   name?: string | number;
   value?: number;
   color?: string;
+  payload?: unknown;
 };
 
 function CustomTooltip({
@@ -173,8 +209,28 @@ function CustomTooltip({
   );
 }
 
-export function PortfolioDashboard({ data }: { data: FilingsData }) {
+function PriceTooltip({ active, payload, label }: { active?: boolean; payload?: ChartTooltipPayload[]; label?: string }) {
+  if (!active || !payload?.length) return null;
+  const marker = payload.find((entry) => entry.dataKey === "price")?.payload as PriceMarker | undefined;
+
+  return (
+    <div className="chart-tooltip">
+      <strong>{marker?.filingDate ?? label}</strong>
+      <div>{marker ? "Filing marker" : "Adjusted close"}: {compactCurrency.format(payload[0].value ?? 0)}</div>
+      {marker ? (
+        <>
+          <div>Report: {marker.reportDate}</div>
+          <div>Exposure: {compactCurrency.format(marker.value)}</div>
+          <div>Change: {compactCurrency.format(marker.delta)}</div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+export function PortfolioDashboard({ data, priceData }: { data: FilingsData; priceData: PriceData }) {
   const [selectedIssuer, setSelectedIssuer] = useState("NVIDIA CORP");
+  const [selectedPriceIssuer, setSelectedPriceIssuer] = useState("BLOOM ENERGY CORP");
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
   const [query, setQuery] = useState("");
 
@@ -266,6 +322,15 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
     name: issuer.issuer,
     size: issuer.value,
   }));
+  const priceSecurities = priceData.securities
+    .filter((security) => security.ticker && security.prices.length > 0)
+    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+  const selectedSecurity =
+    priceSecurities.find((security) => security.issuer === selectedPriceIssuer) ?? priceSecurities[0];
+  const latestMarker = selectedSecurity?.markers.at(-1);
+  const priceStart = selectedSecurity?.prices[0]?.adjustedClose ?? 0;
+  const priceEnd = selectedSecurity?.prices.at(-1)?.adjustedClose ?? 0;
+  const priceChange = priceStart === 0 ? 0 : ((priceEnd - priceStart) / priceStart) * 100;
 
   return (
     <main>
@@ -407,6 +472,56 @@ export function PortfolioDashboard({ data }: { data: FilingsData }) {
               <Line type="monotone" dataKey="value" name={selectedIssuer} stroke="#0891b2" strokeWidth={3} />
             </LineChart>
           </ResponsiveContainer>
+        </ChartPanel>
+
+        <ChartPanel title="Equity Price History With Filing Changes" icon={<Activity size={18} />} wide>
+          <div className="price-tools">
+            <label>
+              Equity
+              <select value={selectedSecurity?.issuer} onChange={(event) => setSelectedPriceIssuer(event.target.value)}>
+                {priceSecurities.map((security) => (
+                  <option key={security.issuer} value={security.issuer}>
+                    {security.displayName} ({security.ticker})
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="price-summary">
+              <strong>
+                {selectedSecurity?.ticker} {pct(priceChange)}
+              </strong>
+              <span>
+                {selectedSecurity?.markers.length ?? 0} filing changes
+                {latestMarker ? `, latest exposure ${compactCurrency.format(latestMarker.value)}` : ""}
+              </span>
+            </div>
+          </div>
+          <ResponsiveContainer width="100%" height={340}>
+            <ComposedChart data={selectedSecurity?.prices ?? []}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
+              <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
+              <Tooltip content={<PriceTooltip />} />
+              <Line
+                type="monotone"
+                dataKey="adjustedClose"
+                name="Adjusted close"
+                stroke="#2563eb"
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Scatter data={selectedSecurity?.markers ?? []} dataKey="price" name="Filing change" fill="#dc2626" />
+            </ComposedChart>
+          </ResponsiveContainer>
+          <div className="filing-events">
+            {(selectedSecurity?.markers ?? []).map((marker) => (
+              <a key={`${marker.accession}-${marker.date}`} href={marker.sourceUrl} target="_blank" rel="noreferrer">
+                <span>{marker.filingDate}</span>
+                <strong>{compactCurrency.format(marker.value)}</strong>
+                <em>{compactCurrency.format(marker.delta)}</em>
+              </a>
+            ))}
+          </div>
         </ChartPanel>
       </section>
 

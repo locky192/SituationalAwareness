@@ -266,6 +266,84 @@ h1 {
   color: #fff;
 }
 
+.price-tools {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.price-tools label {
+  display: grid;
+  gap: 6px;
+  width: min(440px, 100%);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.price-tools select {
+  min-height: 42px;
+  border: 1px solid #b8c4d4;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  padding: 0 12px;
+}
+
+.price-summary {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+}
+
+.price-summary strong {
+  font-size: 22px;
+}
+
+.price-summary span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.filing-events {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.filing-events a {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  border: 1px solid #dbe3ef;
+  background: #f8fafc;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.filing-events span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.filing-events strong {
+  font-size: 12px;
+}
+
+.filing-events em {
+  color: var(--green);
+  font-style: normal;
+  font-weight: 800;
+}
+
 .positions-section {
   margin-top: 12px;
 }
@@ -356,6 +434,15 @@ td {
 
   .panel.wide {
     grid-column: span 1;
+  }
+
+  .price-tools {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .price-summary {
+    text-align: left;
   }
 
   h1 {
