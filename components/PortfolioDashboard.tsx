@@ -339,39 +339,6 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: ChartTool
   );
 }
 
-function PercentTooltip({
-  active,
-  payload,
-  label,
-  scale = "linear",
-}: {
-  active?: boolean;
-  payload?: ChartTooltipPayload[];
-  label?: string | number;
-  scale?: "linear" | "log";
-}) {
-  if (!active || !payload?.length) return null;
-  const visiblePayload = payload
-    .filter((entry) => typeof entry.value === "number")
-    .sort((a, b) => {
-      const aValue = scale === "log" ? (Number(a.value) - 1) * 100 : Number(a.value);
-      const bValue = scale === "log" ? (Number(b.value) - 1) * 100 : Number(b.value);
-      return Math.abs(bValue) - Math.abs(aValue);
-    })
-    .slice(0, 12);
-
-  return (
-    <div className="chart-tooltip">
-      <strong>{formatAxisDate(label ?? "")}</strong>
-      {visiblePayload.map((entry) => (
-        <div key={entry.dataKey} style={{ color: entry.color }}>
-          {entry.name ?? entry.dataKey}: {pct(scale === "log" ? (Number(entry.value) - 1) * 100 : Number(entry.value))}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function equityAllocationsForFiling(filing: Filing): EquityAllocation[] {
   const byIssuer = new Map<string, EquityAllocation>();
 
@@ -1076,7 +1043,6 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 tickFormatter={(value) => pct(overlayScale === "log" ? (Number(value) - 1) * 100 : Number(value))}
                 width={74}
               />
-              <Tooltip content={<PercentTooltip scale={overlayScale} />} />
               <ReferenceLine
                 y={overlayScale === "log" ? 1 : 0}
                 stroke="#94a3b8"
