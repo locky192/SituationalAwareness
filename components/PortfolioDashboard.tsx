@@ -96,6 +96,7 @@ type PriceChartPoint = PricePoint & {
 
 type OverlaySecurity = PriceSecurity & {
   chartKey: string;
+  multipleKey: string;
   color: string;
   latestPercent: number;
   markerPoints: Record<string, number | string>[];
@@ -202,6 +203,15 @@ function formatPeriod(date: string) {
 
 function pct(value: number) {
   return `${value.toFixed(1)}%`;
+}
+
+function toDateMs(date: string) {
+  return new Date(`${date}T00:00:00Z`).getTime();
+}
+
+function formatAxisDate(value: string | number) {
+  if (typeof value === "string") return value.slice(2, 7);
+  return new Date(value).toISOString().slice(2, 7);
 }
 
 function canonicalIssuer(issuer: string) {
@@ -333,23 +343,29 @@ function PercentTooltip({
   active,
   payload,
   label,
+  scale = "linear",
 }: {
   active?: boolean;
   payload?: ChartTooltipPayload[];
-  label?: string;
+  label?: string | number;
+  scale?: "linear" | "log";
 }) {
   if (!active || !payload?.length) return null;
   const visiblePayload = payload
     .filter((entry) => typeof entry.value === "number")
-    .sort((a, b) => Math.abs(Number(b.value)) - Math.abs(Number(a.value)))
+    .sort((a, b) => {
+      const aValue = scale === "log" ? (Number(a.value) - 1) * 100 : Number(a.value);
+      const bValue = scale === "log" ? (Number(b.value) - 1) * 100 : Number(b.value);
+      return Math.abs(bValue) - Math.abs(aValue);
+    })
     .slice(0, 12);
 
   return (
     <div className="chart-tooltip">
-      <strong>{label}</strong>
+      <strong>{formatAxisDate(label ?? "")}</strong>
       {visiblePayload.map((entry) => (
         <div key={entry.dataKey} style={{ color: entry.color }}>
-          {entry.name ?? entry.dataKey}: {pct(Number(entry.value))}
+          {entry.name ?? entry.dataKey}: {pct(scale === "log" ? (Number(entry.value) - 1) * 100 : Number(entry.value))}
         </div>
       ))}
     </div>
@@ -516,6 +532,8 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const [activePriceMarker, setActivePriceMarker] = useState<PriceMarker | null>(null);
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
   const [priceScale, setPriceScale] = useState<"linear" | "log">("linear");
+  const [overlayScale, setOverlayScale] = useState<"linear" | "log">("linear");
+  const [highlightedOverlayKey, setHighlightedOverlayKey] = useState<string | null>(null);
   const [simulatorScale, setSimulatorScale] = useState<"linear" | "log">("linear");
   const [query, setQuery] = useState("");
 
@@ -643,16 +661,20 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const overlayDates = [...new Set(priceSecurities.flatMap((security) => security.prices.map((point) => point.date)))].sort();
   const overlaySecurities: OverlaySecurity[] = priceSecurities.map((security, index) => {
     const chartKey = `equity_${index}`;
+    const multipleKey = `${chartKey}_multiple`;
     const firstPrice = security.prices[0]?.adjustedClose ?? 0;
     const latestPrice = security.prices.at(-1)?.adjustedClose ?? firstPrice;
     return {
       ...security,
       chartKey,
+      multipleKey,
       color: COLORS[index % COLORS.length],
       latestPercent: firstPrice === 0 ? 0 : ((latestPrice - firstPrice) / firstPrice) * 100,
       markerPoints: security.markers.map((marker) => ({
         date: marker.date,
+        dateMs: toDateMs(marker.date),
         [chartKey]: firstPrice === 0 ? 0 : ((marker.price - firstPrice) / firstPrice) * 100,
+        [multipleKey]: firstPrice === 0 ? 1 : marker.price / firstPrice,
       })),
     };
   });
@@ -663,16 +685,40 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
     ]),
   );
   const overlayChartData = overlayDates.map((date) => {
-    const row: Record<string, number | string> = { date };
+    const row: Record<string, number | string> = { date, dateMs: toDateMs(date) };
     for (const security of overlaySecurities) {
       const firstPrice = security.prices[0]?.adjustedClose ?? 0;
       const price = overlayPriceMaps.get(security.chartKey)?.get(date);
       if (firstPrice > 0 && price) {
         row[security.chartKey] = ((price - firstPrice) / firstPrice) * 100;
+        row[security.multipleKey] = price / firstPrice;
       }
     }
     return row;
   });
+  const overlayLinearValues = overlayChartData.flatMap((point) =>
+    overlaySecurities
+      .map((security) => point[security.chartKey])
+      .filter((value): value is number => typeof value === "number"),
+  );
+  const overlayMultipleValues = overlayChartData.flatMap((point) =>
+    overlaySecurities
+      .map((security) => point[security.multipleKey])
+      .filter((value): value is number => typeof value === "number" && value > 0),
+  );
+  const overlayLinearMin = Math.min(...overlayLinearValues);
+  const overlayLinearMax = Math.max(...overlayLinearValues);
+  const overlayLinearPadding = Math.max(10, (overlayLinearMax - overlayLinearMin) * 0.08);
+  const overlayLinearDomain: [number, number] = [
+    overlayLinearMin - overlayLinearPadding,
+    overlayLinearMax + overlayLinearPadding,
+  ];
+  const overlayMultipleMin = Math.min(...overlayMultipleValues);
+  const overlayMultipleMax = Math.max(...overlayMultipleValues);
+  const overlayLogDomain: [number, number] = [
+    Math.max(0.01, overlayMultipleMin * 0.9),
+    overlayMultipleMax * 1.1,
+  ];
   const simulator = buildSimulatorSeries(filings, priceSecurities, priceData.benchmarks?.[0]);
   const simulatorValues = simulator.series.flatMap((point) =>
     [point.value, point.benchmarkValue].filter((value): value is number => Boolean(value && value > 0)),
@@ -976,6 +1022,29 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
         </ChartPanel>
 
         <ChartPanel title="All Equity Price Performance Overlay" icon={<Activity size={18} />} wide>
+          <div className="panel-toolbar">
+            <div>
+              <p className="eyebrow">Y-axis scale</p>
+              <div className="segmented-control small">
+                <button
+                  type="button"
+                  aria-pressed={overlayScale === "linear"}
+                  className={overlayScale === "linear" ? "active" : ""}
+                  onClick={() => setOverlayScale("linear")}
+                >
+                  Linear
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={overlayScale === "log"}
+                  className={overlayScale === "log" ? "active" : ""}
+                  onClick={() => setOverlayScale("log")}
+                >
+                  Log
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="price-tools">
             <div className="price-summary">
               <strong>{overlaySecurities.length} equities</strong>
@@ -985,30 +1054,56 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
           <ResponsiveContainer width="100%" height={460}>
             <ComposedChart data={overlayChartData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
-              <YAxis tickFormatter={(value) => pct(Number(value))} width={74} />
-              <Tooltip content={<PercentTooltip />} />
-              <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
+              <XAxis
+                dataKey="dateMs"
+                domain={["dataMin", "dataMax"]}
+                minTickGap={36}
+                scale="time"
+                tickFormatter={formatAxisDate}
+                type="number"
+              />
+              <YAxis
+                allowDataOverflow={overlayScale === "log"}
+                domain={overlayScale === "log" ? overlayLogDomain : overlayLinearDomain}
+                scale={overlayScale}
+                tickFormatter={(value) => pct(overlayScale === "log" ? (Number(value) - 1) * 100 : Number(value))}
+                width={74}
+              />
+              <Tooltip content={<PercentTooltip scale={overlayScale} />} />
+              <ReferenceLine
+                y={overlayScale === "log" ? 1 : 0}
+                stroke="#94a3b8"
+                strokeDasharray="4 4"
+              />
               {overlaySecurities.map((security) => (
                 <Line
                   key={security.chartKey}
                   type="monotone"
-                  dataKey={security.chartKey}
+                  dataKey={overlayScale === "log" ? security.multipleKey : security.chartKey}
                   name={`${security.displayName} (${security.ticker})`}
                   stroke={security.color}
-                  strokeOpacity={0.68}
-                  strokeWidth={1.5}
+                  strokeOpacity={
+                    highlightedOverlayKey ? (highlightedOverlayKey === security.chartKey ? 1 : 0.12) : 0.68
+                  }
+                  strokeWidth={highlightedOverlayKey === security.chartKey ? 3 : 1.5}
                   dot={false}
                   connectNulls={false}
+                  onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
+                  onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
               ))}
               {overlaySecurities.map((security) => (
                 <Scatter
                   key={`${security.chartKey}-markers`}
                   data={security.markerPoints}
-                  dataKey={security.chartKey}
+                  dataKey={overlayScale === "log" ? security.multipleKey : security.chartKey}
                   name={`${security.displayName} holding change`}
                   fill={security.color}
+                  opacity={
+                    highlightedOverlayKey ? (highlightedOverlayKey === security.chartKey ? 1 : 0.12) : 0.72
+                  }
+                  onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
+                  onMouseLeave={() => setHighlightedOverlayKey(null)}
                 />
               ))}
             </ComposedChart>
@@ -1018,7 +1113,12 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
               .slice()
               .sort((a, b) => b.latestPercent - a.latestPercent)
               .map((security) => (
-                <div key={security.chartKey} className="overlay-legend-item">
+                <div
+                  key={security.chartKey}
+                  className={`overlay-legend-item${highlightedOverlayKey === security.chartKey ? " highlighted" : ""}`}
+                  onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
+                  onMouseLeave={() => setHighlightedOverlayKey(null)}
+                >
                   <span className="swatch" style={{ background: security.color }} />
                   <strong>{security.ticker}</strong>
                   <span>{security.displayName}</span>
