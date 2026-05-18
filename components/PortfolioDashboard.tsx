@@ -439,6 +439,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const [selectedPriceIssuer, setSelectedPriceIssuer] = useState("BLOOM ENERGY CORP");
   const [activePriceMarker, setActivePriceMarker] = useState<PriceMarker | null>(null);
   const [instrumentType, setInstrumentType] = useState(ALL_INSTRUMENTS);
+  const [priceScale, setPriceScale] = useState<"linear" | "log">("linear");
   const [simulatorScale, setSimulatorScale] = useState<"linear" | "log">("linear");
   const [query, setQuery] = useState("");
 
@@ -548,6 +549,12 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
       markerPrice: marker?.price ?? null,
     };
   });
+  const priceValues = priceChartData
+    .map((point) => point.adjustedClose)
+    .filter((value): value is number => Boolean(value && value > 0));
+  const priceMinValue = Math.min(...priceValues);
+  const priceMaxValue = Math.max(...priceValues);
+  const priceLogDomain: [number, number] = [Math.max(0.01, priceMinValue * 0.92), priceMaxValue * 1.08];
   const showPriceMarker = (point: unknown) => {
     const marker = (point as { payload?: PriceChartPoint })?.payload?.marker;
     if (marker) {
@@ -708,6 +715,29 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
         </ChartPanel>
 
         <ChartPanel title="Equity Price History With Filing Changes" icon={<Activity size={18} />} wide>
+          <div className="panel-toolbar">
+            <div>
+              <p className="eyebrow">Y-axis scale</p>
+              <div className="segmented-control small">
+                <button
+                  type="button"
+                  aria-pressed={priceScale === "linear"}
+                  className={priceScale === "linear" ? "active" : ""}
+                  onClick={() => setPriceScale("linear")}
+                >
+                  Linear
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={priceScale === "log"}
+                  className={priceScale === "log" ? "active" : ""}
+                  onClick={() => setPriceScale("log")}
+                >
+                  Log
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="price-tools">
             <label>
               Equity
@@ -733,7 +763,13 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
             <ComposedChart data={priceChartData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
-              <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
+              <YAxis
+                allowDataOverflow={priceScale === "log"}
+                domain={priceScale === "log" ? priceLogDomain : undefined}
+                scale={priceScale}
+                tickFormatter={(value) => compactCurrency.format(Number(value))}
+                width={74}
+              />
               <Tooltip content={<PriceTooltip />} />
               {activePriceMarker ? (
                 <ReferenceArea
