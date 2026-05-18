@@ -424,7 +424,13 @@ h1 {
   align-items: center;
   gap: 8px;
   padding: 3px 4px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
   font-size: 12px;
+  font: inherit;
+  text-align: left;
 }
 
 .overlay-legend-item.highlighted {

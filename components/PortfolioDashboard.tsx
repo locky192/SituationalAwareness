@@ -1133,17 +1133,19 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
           </ResponsiveContainer>
           <div className="overlay-legend">
             {visibleOverlayLegendSecurities.map((security) => (
-              <div
+              <button
+                type="button"
                 key={security.chartKey}
                 className={`overlay-legend-item${highlightedOverlayKey === security.chartKey ? " highlighted" : ""}`}
-                onMouseEnter={() => setHighlightedOverlayKey(security.chartKey)}
-                onMouseLeave={() => setHighlightedOverlayKey(null)}
+                onClick={() =>
+                  setHighlightedOverlayKey((current) => (current === security.chartKey ? null : security.chartKey))
+                }
               >
                 <span className="swatch" style={{ background: security.color }} />
                 <strong>{security.ticker}</strong>
                 <span>{security.displayName}</span>
                 <em className={security.latestPercent >= 0 ? "positive" : "negative"}>{pct(security.latestPercent)}</em>
-              </div>
+              </button>
             ))}
           </div>
         </ChartPanel>
