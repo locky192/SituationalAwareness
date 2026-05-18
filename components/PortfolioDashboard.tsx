@@ -84,6 +84,11 @@ type PricePoint = {
   adjustedClose: number;
 };
 
+type PriceChartPoint = PricePoint & {
+  markerPrice: number | null;
+  marker?: PriceMarker;
+};
+
 type PriceMarker = {
   reportDate: string;
   filingDate: string;
@@ -211,7 +216,8 @@ function CustomTooltip({
 
 function PriceTooltip({ active, payload, label }: { active?: boolean; payload?: ChartTooltipPayload[]; label?: string }) {
   if (!active || !payload?.length) return null;
-  const marker = payload.find((entry) => entry.dataKey === "price")?.payload as PriceMarker | undefined;
+  const chartPoint = payload[0]?.payload as PriceChartPoint | undefined;
+  const marker = chartPoint?.marker;
 
   return (
     <div className="chart-tooltip">
@@ -331,6 +337,15 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
   const priceStart = selectedSecurity?.prices[0]?.adjustedClose ?? 0;
   const priceEnd = selectedSecurity?.prices.at(-1)?.adjustedClose ?? 0;
   const priceChange = priceStart === 0 ? 0 : ((priceEnd - priceStart) / priceStart) * 100;
+  const markerByDate = new Map((selectedSecurity?.markers ?? []).map((marker) => [marker.date, marker]));
+  const priceChartData: PriceChartPoint[] = (selectedSecurity?.prices ?? []).map((point) => {
+    const marker = markerByDate.get(point.date);
+    return {
+      ...point,
+      marker,
+      markerPrice: marker?.price ?? null,
+    };
+  });
 
   return (
     <main>
@@ -497,7 +512,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
             </div>
           </div>
           <ResponsiveContainer width="100%" height={340}>
-            <ComposedChart data={selectedSecurity?.prices ?? []}>
+            <ComposedChart data={priceChartData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="date" minTickGap={36} tickFormatter={(value) => String(value).slice(2, 7)} />
               <YAxis tickFormatter={(value) => compactCurrency.format(Number(value))} width={74} />
@@ -510,7 +525,7 @@ export function PortfolioDashboard({ data, priceData }: { data: FilingsData; pri
                 strokeWidth={2.5}
                 dot={false}
               />
-              <Scatter data={selectedSecurity?.markers ?? []} dataKey="price" name="Filing change" fill="#dc2626" />
+              <Scatter dataKey="markerPrice" name="Filing change" fill="#dc2626" />
             </ComposedChart>
           </ResponsiveContainer>
           <div className="filing-events">
